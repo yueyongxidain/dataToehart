@@ -1,12 +1,11 @@
 import fetch from 'dva/fetch';
 
 function parseJSON(response) {
-  console.log('oo',response.json())
+  console.log('1221212',response)
   return response.json();
 }
 
 function checkStatus(response) {
-  debugger
   if (response.status >= 200 && response.status < 300) {
     return response;
   }
@@ -16,9 +15,9 @@ function checkStatus(response) {
   throw error;
 }
 const requestHeader = {
-    'Accept': 'application/json;',
+    'Accept': '',
     'Content-Type': 'application/json;charset=utf-8',
-    'mode': "cors",
+    // 'mode': "cors",
 }
 
 /**
@@ -42,7 +41,10 @@ function request(url, options) {
     .then(parseJSON)
     .then(data => {
       console.log('data',data)
+      return data
     })
-    .catch(err => ({ err }));
+    .catch(err => {
+      console.log('err',err.name)
+    });
 }
 export default POST

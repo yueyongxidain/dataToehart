@@ -1,6 +1,6 @@
 import React from 'react';
 import { Router, Route, Switch } from 'dva/router';
-import Home from './routes/home';
+import Upload from './routes/upload';
 import Login from './routes/login';
 
 function RouterConfig({ history }) {
@@ -8,7 +8,7 @@ function RouterConfig({ history }) {
     <Router history={history}>
       <Switch>
         <Route path="/" exact component={Login} />
-        <Route path="/home" exact component={Home} />
+        <Route path="/upload" exact component={Upload} />
       </Switch>
     </Router>
   );
