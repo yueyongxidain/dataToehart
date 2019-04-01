@@ -16,7 +16,7 @@ class Index extends Component {
                 return e.status!=='done'
             })||[]
             if(!!i && i.length==0){
-                this.props.dispatch(routerRedux.push("/home"))
+                this.props.dispatch(routerRedux.push("/home/all"))
             }
         }
         else{

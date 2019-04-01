@@ -4,7 +4,19 @@ import { Card, Form } from 'antd';
 import Echart from 'echarts';
 import './index.less'
 class Index extends Component {
-    componentDidMount = () => {
+    constructor(props) {
+        super(props)
+        this.state = {
+            data: this.props.data || []
+        }
+    }
+    componentWillReceiveProps = (nextProps) => {
+        let xdata = [];
+        let ydata = [];
+        nextProps.data.map((ele) => {
+            xdata.push(ele.key)
+            ydata.push(ele.value)
+        })
         let option = {
             //--------------   提示框 -----------------
             tooltip: {
@@ -24,7 +36,9 @@ class Index extends Component {
             //-------------  grid区域  ----------------
             grid: {
                 show: true,                 //---是否显示直角坐标系网格
-                top: 80,                     //---相对位置，top\bottom\left\right  
+                top: 80,
+                left: 60,
+                right: 20,                     //---相对位置，top\bottom\left\right  
                 containLabel: false,         //---grid 区域是否包含坐标轴的刻度标签
                 tooltip: {                   //---鼠标焦点放在图形上，产生的提示框
                     show: true,
@@ -66,7 +80,6 @@ class Index extends Component {
                     inside: true,                //---是否朝内
                     lengt: 3,                    //---长度
                     lineStyle: {
-                        //color:'red',          //---默认取轴线的颜色
                         width: 1,
                         type: 'solid',
                     },
@@ -89,7 +102,7 @@ class Index extends Component {
                 splitArea: {                 //--网格区域
                     show: false,                 //---是否显示，默认false
                 },
-                data: ["包装清单", "尺寸变量", "处理器", "存储", "电池", "服务", "感应器", "价格", "耐用性", "拍摄", "屏幕", "数据连接", "外观", "系统", "音频视频"],//内容
+                data: xdata,//内容
             },
             //----------------------  y轴  ------------------------
             yAxis: {
@@ -175,7 +188,7 @@ class Index extends Component {
                     },
                     barWidth: '20',              //---柱形宽度
                     barCategoryGap: '20%',       //---柱形间距
-                    data: [3020, 4800, 3600, 6050, 4320, 6200, 5050, 7200, 4521, 6700, 8000, 5020, 1000, 500, 200]
+                    data: ydata
                 }
             ]
         };

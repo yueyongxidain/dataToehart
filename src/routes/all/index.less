@@ -1,0 +1,130 @@
+.all-body {
+    width: 94.5vw;
+    height: calc(100vh - 6.2vw);
+    position: absolute;
+    top: 6.2vw;
+    left: 5.5vw;
+
+    .tables {
+        height: calc(calc(100vh - 6.2vw)/100 * 65);
+        width: 94.5vw;
+        margin: 0;
+    }
+
+    .sort {
+        position: absolute;
+        top: 2.8vh;
+        right: 8vw;
+        z-index: 1;
+    }
+
+    .table {
+        position: absolute;
+        top: 2.8vh;
+        left: 4vw;
+
+        .table-title {
+            color: #FFFFFF;
+            font-size: 1.2vw;
+            display: inline-block;
+        }
+    }
+
+
+    .table-button {
+        display: inline-block;
+        font-family: SourceHanSansSC-Bold;
+        font-size: 1vw;
+        color: #FFFFFF;
+        text-align: center;
+        padding-left: 1.2vw;
+        padding-right: 1.2vw;
+        border: 0.1vw solid #00FFDE;
+        border-radius: 2vw;
+        z-index: 999;
+    }
+
+    .btn-one {
+        position: absolute;
+        left: 27.8vw;
+        width: 6vw;
+    }
+
+    .btn-two {
+        position: absolute;
+        left: 37.8vw;
+        width: 6vw;
+    }
+
+    .btn-three {
+        position: absolute;
+        left: 47.8vw;
+        width: 7vw;
+    }
+
+    .btn-four {
+        position: absolute;
+        left: 57.8vw;
+        width: 7vw;
+    }
+
+    .pie {
+        .divider-pie {
+            position: relative;
+            left: 46vw;
+            top: 2vh;
+            // margin: 0 0.1vw;
+            height: 25vh !important;
+            // min-height: 90vw !important;
+            background: #000000;
+        }
+
+        .left {
+            width: 45vw;
+            height: 30vh;
+            display: inline-block;
+            position: absolute;
+            left: 2vw;
+
+            .left-title {
+                color: #FFFFFF;
+                font-size: 1.2vw;
+                display: inline-block;
+                position: absolute;
+                top: 1.5vh;
+                left: 2.8vw;
+            }
+
+            .left-body {
+                position: absolute;
+                top: 3vh;
+                width: 45vw;
+                height: 30vh;
+            }
+        }
+
+        .right {
+            width: 45vw;
+            height: 30vh;
+            display: inline-block;
+            position: absolute;
+            left: 50vw;
+
+            .right-body {
+                position: absolute;
+                top: 3vh;
+                width: 45vw;
+                height: 30vh;
+            }
+
+            .right-title {
+                color: #FFFFFF;
+                font-size: 1.2vw;
+                display: inline-block;
+                position: absolute;
+                top: 1.5vh;
+            }
+        }
+
+    }
+}
