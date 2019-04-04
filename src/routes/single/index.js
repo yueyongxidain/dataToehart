@@ -88,6 +88,29 @@ class Index extends Component {
                 <div className='sort'><img src={!this.state.sortType ? SortDown : SortUp} onClick={this.sort} /></div>
                 <div className='tables'>
                     <Bar data={this.state.data} />
+                    <Divider type='vertical' className='tables-divider' />
+                    <div className='tables-Right'>
+                        <div>
+                            <span className='title'>高端手机</span>
+                            {/* <img className='btn-1' src={!gaoBtn ? Btn_white : Btn_gao} onClick={this.gaoClick} /> */}
+                            <span className='desc'>*价格在2500元以上的手机为高端手机</span>
+                            <span className='number'><span className='number-number'>22 </span> 手机个数</span>
+                        </div>
+                        <Divider className='tables-Right-divider' />
+                        <div>
+                            <span className='title'>中端手机</span>
+                            {/* <img className='btn-2' src={!zhongBtn ? Btn_white : Btn_zhong} onClick={this.zhongClick} /> */}
+                            <span className='desc'> *价格在1500-2500元之间的手机为中端手机</span>
+                            <span className='number'><span className='number-number'>19 </span>  手机个数</span>
+                        </div>
+                        <Divider className='tables-Right-divider' />
+                        <div>
+                            <span className='title'>低端手机</span>
+                            {/* <img className='btn-3' src={!diBtn ? Btn_white : Btn_di} onClick={this.diClick} /> */}
+                            <span className='desc'>*价格在1500元以下的手机为低端手机</span>
+                            <span className='number'><span className='number-number'>19 </span>  手机个数</span>
+                        </div>
+                    </div>
                 </div>
                 <Divider className='divider' />
                 <div className='pie'>

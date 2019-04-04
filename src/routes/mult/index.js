@@ -92,7 +92,7 @@ class Index extends Component {
             })
         }
         if (zhongBtn) {
-           
+
             zhong.sort((a, b) => {
                 if (a.value > b.value) return sortType ? -1 : 1
                 if (a.value < b.value) return sortType ? 1 : -1
@@ -113,7 +113,7 @@ class Index extends Component {
                 })
             })
             this.setState({
-                gao:gao_new,
+                gao: gao_new,
                 zhong: zhong,
                 di: di_new,
                 sortType: sortType ? 0 : 1
@@ -141,7 +141,7 @@ class Index extends Component {
                 })
             })
             this.setState({
-                gao:gao_new,
+                gao: gao_new,
                 zhong: zhong_new,
                 di: di,
                 sortType: sortType ? 0 : 1
@@ -218,6 +218,9 @@ class Index extends Component {
                 <div className='sort'>{show ? <img src={!this.state.sortType ? SortDown : SortUp} onClick={this.sort} /> : null}</div>
                 <div className='tables'>
                     <Bar gao={this.state.gao} zhong={this.state.zhong} di={this.state.di} btngao={gaoBtn} btnzhong={zhongBtn} btndi={diBtn} />
+                    <div className='tooltip1'><div className='tooltip-icon'> &nbsp; &nbsp; &nbsp; &nbsp;</div><span> &nbsp;高端手机</span></div>
+                    <div className='tooltip2'><div className='tooltip-icon'>&nbsp; &nbsp; &nbsp; &nbsp;</div><span > &nbsp;中端手机</span></div>
+                    <div className='tooltip3'><div className='tooltip-icon'>&nbsp; &nbsp; &nbsp; &nbsp;</div><span> &nbsp;低端手机</span></div>
                     <Divider type='vertical' className='tables-divider' />
                     <div className='tables-Right'>
                         <div>
