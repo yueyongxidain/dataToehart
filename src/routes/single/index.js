@@ -15,7 +15,8 @@ class Index extends Component {
             index: 1,
             barIndex: 1,
             data: [],
-            sortType: 0
+            sortType: 0,
+            phone: [],
         }
     }
     btnOne = (e) => {
@@ -75,6 +76,13 @@ class Index extends Component {
     }
     componentWillMount = () => {
         this.postItem(1)
+        POST('/demo/getPhone.php', {}).then(app => {
+            if (app.code == 0) {
+                this.setState({
+                    phone: app.result
+                })
+            }
+        })
     }
     render() {
         return (
