@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'dva';
-import { Divider } from 'antd'
+import { Divider, Icon } from 'antd'
 import SortDown from '../../assets/icon_sort_down.png'
 import SortUp from '../../assets/icon_sort_up.png'
 import POST from '../../utils/request.js'
 import Bar from '../commpent/bar/index';
 import Pie from '../commpent/pie/index';
+import AddModal from './addModal'
 import './index.less'
 const length = 0;
 class Index extends Component {
@@ -17,6 +18,7 @@ class Index extends Component {
             data: [],
             sortType: 0,
             phone: [],
+            phoneSource: []
         }
     }
     btnOne = (e) => {
@@ -65,6 +67,10 @@ class Index extends Component {
             sortType: sortType ? 0 : 1
         })
     }
+    //添加手机点击事件
+    addPhone = () => {
+
+    }
     postItem = (item) => {
         POST('/demo/getCsv.php', { name: '总体手机', item: item }).then(app => {
             if (app.code == 0) {
@@ -72,6 +78,93 @@ class Index extends Component {
                     data: app.result
                 })
             }
+        })
+    }
+    //手机对比
+    phoneList = (phoneSource) => {
+        if (phoneSource.length == 1) {
+            return (
+                <div>
+                    <div className="phone-one">
+                        {phoneSource[0].phone}
+                        <div className='phone-info'>
+                            {phoneSource[0].value.map((ele) => {
+                                return (<div>
+                                    <span>
+                                        {ele.color}
+                                    </span>
+                                    <span>
+                                        {ele.size}
+                                    </span>
+                                </div>)
+
+                            })}
+                        </div>
+
+                    </div>
+                    <Divider type='horizontal' className='phone-divider' />
+                    <div className="phone-add" onClick={this.addClick}>
+                        <Icon type="plus-circle" style={{ color: 'rgba(255,255,255,0.14)', fontSize: '3vw' }} />
+                        <div className='addtext'>添加对比手机</div>
+                    </div>
+                </div>
+            )
+        }
+        if (phoneSource.length == 2) {
+            return (
+                <div>
+                    <div className="phone-one">
+                        {phoneSource[0].phone}
+                        <div className='phone-info'>
+                            {phoneSource[0].value.map((ele) => {
+                                return (<div>
+                                    <span>
+                                        {ele.color}
+                                    </span>
+                                    <span>
+                                        {ele.size}
+                                    </span>
+                                </div>)
+
+                            })}
+                        </div>
+
+                    </div>
+                    <Divider type='horizontal' className='phone-divider' />
+                    <div className="phone-two" onClick={this.addClick}>
+                        {phoneSource[1].phone}
+                        <div className='phone-info'>
+                            {phoneSource[1].value.map((ele) => {
+                                return (<div>
+                                    <span>
+                                        {ele.color}
+                                    </span>
+                                    <span>
+                                        {ele.size}
+                                    </span>
+                                </div>)
+
+                            })}
+                        </div>
+
+                    </div>
+                </div>
+            )
+        }
+    }
+    addClick = () => {
+        this.setState({
+            addVisible: true
+        })
+    }
+    cancle = () => {
+        this.setState({
+            addVisible: false
+        })
+    }
+    addPhone = (phoneSource) => {
+        this.setState({
+            phoneSource: [...this.state.phoneSource, ...phoneSource]
         })
     }
     componentWillMount = () => {
@@ -85,6 +178,7 @@ class Index extends Component {
         })
     }
     render() {
+        let { phoneSource, addVisible } = this.state
         return (
             <div className='single-body' >
                 <div className='table'><span className='table-title'>手机产品属性情感分析结果</span>
@@ -99,24 +193,13 @@ class Index extends Component {
                     <Divider type='vertical' className='tables-divider' />
                     <div className='tables-Right'>
                         <div>
-                            <span className='title'>高端手机</span>
-                            {/* <img className='btn-1' src={!gaoBtn ? Btn_white : Btn_gao} onClick={this.gaoClick} /> */}
-                            <span className='desc'>*价格在2500元以上的手机为高端手机</span>
-                            <span className='number'><span className='number-number'>22 </span> 手机个数</span>
-                        </div>
-                        <Divider className='tables-Right-divider' />
-                        <div>
-                            <span className='title'>中端手机</span>
-                            {/* <img className='btn-2' src={!zhongBtn ? Btn_white : Btn_zhong} onClick={this.zhongClick} /> */}
-                            <span className='desc'> *价格在1500-2500元之间的手机为中端手机</span>
-                            <span className='number'><span className='number-number'>19 </span>  手机个数</span>
-                        </div>
-                        <Divider className='tables-Right-divider' />
-                        <div>
-                            <span className='title'>低端手机</span>
-                            {/* <img className='btn-3' src={!diBtn ? Btn_white : Btn_di} onClick={this.diClick} /> */}
-                            <span className='desc'>*价格在1500元以下的手机为低端手机</span>
-                            <span className='number'><span className='number-number'>19 </span>  手机个数</span>
+                            {
+                                phoneSource.length > 0 ? this.phoneList(phoneSource) :
+                                    <div className="add" onClick={this.addClick}>
+                                        <Icon type="plus-circle" style={{ color: 'rgba(255,255,255,0.14)', fontSize: '3vw' }} />
+                                        <div className='addtext'>添加对比手机</div>
+                                    </div>
+                            }
                         </div>
                     </div>
                 </div>
@@ -161,6 +244,7 @@ class Index extends Component {
 
                     </div>
                 </div>
+                <AddModal date={this.state.phone} add={this.addPhone} addVisible={addVisible} cancle={this.cancle} />
             </div >
         )
     }
