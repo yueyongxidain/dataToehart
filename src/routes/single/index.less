@@ -199,44 +199,103 @@
 }
 
 .phone-divider {
-    color: #FFFFFF;
+    background-color: #000000 !important;
+    color: #000000 !important;
     position: absolute;
-    top: calc(calc(calc(100vh - 6.2vw)/100 * 45) / 2);
+    top: calc(calc(calc(100vh - 6.2vw)/100 * 42) / 2);
     width: 80%;
     min-width: 80%;
 }
 
 .phone-two {
-    position: absolute;
-    top: calc(calc(calc(100vh - 6.2vw)/100 * 60) / 2);
-    .phone-color {
-        text-align: right;
-        span{
-            display: inline-block !important;
-            margin-right: 1vw;
+    position: relative;
+    top: 2vw;
+    font-size: 0.2vw;
+    margin-right: 5vw;
+    font-size: 0.2vw;
+    .phone-info {
+        .phone-info-left {
+            padding-left: 1vw;
+            color: #8494A5;
+            vertical-align: top;
+            display: inline-block;
+            width: 30%;
         }
-        
-    }
-    .phone-size{
-        text-align: right;
-        span{
+
+        .phone-info-right {
+            color: #FFFFFF;
+            text-align: right;
+            display: inline-block;
+            width: 70%;
+        }
+
+        span {
             display: inline-block !important;
-            margin-right: 1vw;
+            margin-right: 0.4vw;
         }
     }
 }
 
 .phone-one {
     margin-right: 5vw;
-    .phone-info{
-        span{
+    font-size: 0.2vw;
+    .phone-info {
+        .phone-info-left {
+            padding-left: 1vw;
+            color: #8494A5;
+            vertical-align: top;
             display: inline-block;
+            width: 30%;
+        }
+
+        .phone-info-right {
+            color: #FFFFFF;
+            text-align: right;
+            display: inline-block;
+            width: 70%;
+        }
+
+        span {
+            display: inline-block !important;
+            margin-right: 0.4vw;
         }
     }
 }
-.phone-add{
+
+.phone-add {
     position: absolute !important;
     top: calc(calc(calc(100vh - 6.2vw)/100 * 60) / 2) !important;
     text-align: center;
-    left:8vw;
+    left: 8vw;
+}
+
+.phone-type {
+    font-family: PingFangSC-Medium;
+    margin-top: 1.6vw;
+    margin-bottom: 0.7vw;
+    color: #FFFFFF;
+    letter-spacing: 0;
+    font-size: 1.4vw;
+    padding-left: 1vw;
+    span{
+        display: inline-block !important;
+        font-size: 0.8vw;
+        color:#8494A5;
+    }
+}
+
+.phone-name {
+    font-family: SourceHanSansSC-Normal;
+    font-size: 1vw;
+    color: #FFFFFF;
+    margin-bottom: 0.6vw;
+    letter-spacing: 0;
+}
+
+.phone-li-divider {
+    color:rgba(255,255,255,0.14);
+    background-color: rgba(255,255,255,0.14);
+    width: 95%;
+    min-width: 95%;
+    margin: 0.5vw auto;
 }

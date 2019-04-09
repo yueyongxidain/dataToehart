@@ -4,7 +4,7 @@ import { Divider, Icon } from 'antd'
 import SortDown from '../../assets/icon_sort_down.png'
 import SortUp from '../../assets/icon_sort_up.png'
 import POST from '../../utils/request.js'
-import Bar from '../commpent/bar/index';
+import Bar from '../commpent/singleBar/index';
 import Pie from '../commpent/pie/index';
 import AddModal from './addModal'
 import './index.less'
@@ -15,7 +15,8 @@ class Index extends Component {
         this.state = {
             index: 1,
             barIndex: 1,
-            data: [],
+            one: [],
+            two: [],
             sortType: 0,
             phone: [],
             phoneSource: []
@@ -24,7 +25,9 @@ class Index extends Component {
     btnOne = (e) => {
         e.stopPropagation()
         if (this.state.barIndex == 1) return
-        this.postItem(1)
+        for (var index in this.state.phoneSource){
+            this.postItem(this.state.phoneSource[index].phone,1,index==0?'one':'two')
+        }
         this.setState({
             barIndex: 1
         })
@@ -32,7 +35,9 @@ class Index extends Component {
     btnTwo = (e) => {
         e.stopPropagation()
         if (this.state.barIndex == 2) return
-        this.postItem(2)
+        for (var index in this.state.phoneSource){
+            this.postItem(this.state.phoneSource[index].phone,2,index==0?'one':'two')
+        }
         this.setState({
             barIndex: 2
         })
@@ -40,7 +45,9 @@ class Index extends Component {
     btnThree = (e) => {
         e.stopPropagation()
         if (this.state.barIndex == 3) return
-        this.postItem(3)
+        for (var index in this.state.phoneSource){
+            this.postItem(this.state.phoneSource[index].phone,3,index==0?'one':'two')
+        }
         this.setState({
             barIndex: 3
         })
@@ -48,7 +55,9 @@ class Index extends Component {
     btnFour = (e) => {
         e.stopPropagation()
         if (this.state.barIndex == 4) return
-        this.postItem(4)
+        for (var index in this.state.phoneSource){
+            this.postItem(this.state.phoneSource[index].phone,4,index==0?'one':'two')
+        }
         this.setState({
             barIndex: 4
         })
@@ -67,16 +76,16 @@ class Index extends Component {
             sortType: sortType ? 0 : 1
         })
     }
-    //添加手机点击事件
-    addPhone = () => {
-
-    }
-    postItem = (item) => {
-        POST('/demo/getCsv.php', { name: '总体手机', item: item }).then(app => {
+    postItem = (name, item, stateName) => {
+        POST('/demo/getCsv.php', { name: name, item: item }).then(app => {
             if (app.code == 0) {
-                this.setState({
-                    data: app.result
-                })
+                stateName == 'one' ?
+                    this.setState({
+                        one: app.result
+                    }) :
+                    this.setState({
+                        two: app.result
+                    })
             }
         })
     }
@@ -86,67 +95,130 @@ class Index extends Component {
             return (
                 <div>
                     <div className="phone-one">
-                        {phoneSource[0].phone}
+                        <div className='phone-name'>{phoneSource[0].phone}</div>
+                        <div className='phone-type'>{phoneSource[0].type} &nbsp;&nbsp;&nbsp;<span>类型</span></div>
                         <div className='phone-info'>
-                            {phoneSource[0].value.map((ele) => {
-                                return (<div>
-                                    <span>
-                                        {ele.color}
-                                    </span>
-                                    <span>
-                                        {ele.size}
-                                    </span>
-                                </div>)
 
-                            })}
+                            <div style={{ display: 'block', verticalAlign: 'top', marginRight: '0.4vw' }}>
+                                <div className='phone-info-left'>颜色：</div>
+                                <div className='phone-info-right'>
+                                    {phoneSource[0].value.map((ele) => {
+                                        return (
+                                            <span >
+                                                {ele.color}、
+                                        </span>
+                                        )
+
+                                    })}
+                                </div>
+
+                            </div>
+                            <Divider type='horizontal' className='phone-li-divider' />
+                            <div style={{ display: 'block', verticalAlign: 'top', marginRight: '0.4vw' }}>
+                                <div className='phone-info-left'>内存：</div>
+                                <div className='phone-info-right'>
+                                    {phoneSource[0].value.map((ele) => {
+                                        return (
+                                            <span>
+                                                {
+                                                    !!ele.size ? ele.size + '、' : null
+                                                }
+
+                                            </span>
+                                        )
+
+                                    })}
+                                </div>
+                            </div>
                         </div>
-
                     </div>
                     <Divider type='horizontal' className='phone-divider' />
                     <div className="phone-add" onClick={this.addClick}>
                         <Icon type="plus-circle" style={{ color: 'rgba(255,255,255,0.14)', fontSize: '3vw' }} />
                         <div className='addtext'>添加对比手机</div>
                     </div>
-                </div>
+                </div >
             )
         }
         if (phoneSource.length == 2) {
             return (
                 <div>
                     <div className="phone-one">
-                        {phoneSource[0].phone}
+                        <div className='phone-name'>{phoneSource[0].phone}</div>
+                        <div className='phone-type'>{phoneSource[0].type} &nbsp;&nbsp;&nbsp;<span>类型</span></div>
                         <div className='phone-info'>
-                            {phoneSource[0].value.map((ele) => {
-                                return (<div>
-                                    <span>
-                                        {ele.color}
-                                    </span>
-                                    <span>
-                                        {ele.size}
-                                    </span>
-                                </div>)
 
-                            })}
+                            <div style={{ display: 'block', verticalAlign: 'top', marginRight: '0.4vw' }}>
+                                <div className='phone-info-left'>颜色：</div>
+                                <div className='phone-info-right'>
+                                    {phoneSource[0].value.map((ele) => {
+                                        return (
+                                            <span >
+                                                {ele.color}、
+                                        </span>
+                                        )
+
+                                    })}
+                                </div>
+
+                            </div>
+                            <Divider type='horizontal' className='phone-li-divider' />
+                            <div style={{ display: 'block', verticalAlign: 'top', marginRight: '0.4vw' }}>
+                                <div className='phone-info-left'>内存：</div>
+                                <div className='phone-info-right'>
+                                    {phoneSource[0].value.map((ele) => {
+                                        return (
+                                            <span>
+                                                {
+                                                    !!ele.size ? ele.size + '、' : null
+                                                }
+
+                                            </span>
+                                        )
+
+                                    })}
+                                </div>
+                            </div>
                         </div>
-
                     </div>
                     <Divider type='horizontal' className='phone-divider' />
-                    <div className="phone-two" onClick={this.addClick}>
-                        {phoneSource[1].phone}
+                    <div className="phone-two">
+                        <div className='phone-name'>{phoneSource[1].phone}</div>
+                        <div className='phone-type'>{phoneSource[1].type} &nbsp;&nbsp;&nbsp;<span>类型</span></div>
                         <div className='phone-info'>
-                            {phoneSource[1].value.map((ele) => {
-                                return (<div>
-                                    <span>
-                                        {ele.color}
-                                    </span>
-                                    <span>
-                                        {ele.size}
-                                    </span>
-                                </div>)
 
-                            })}
+                            <div style={{ display: 'block', verticalAlign: 'top', marginRight: '0.4vw' }}>
+                                <div className='phone-info-left'>颜色：</div>
+                                <div className='phone-info-right'>
+                                    {phoneSource[0].value.map((ele) => {
+                                        return (
+                                            <span >
+                                                {ele.color}、
+                                        </span>
+                                        )
+
+                                    })}
+                                </div>
+
+                            </div>
+                            <Divider type='horizontal' className='phone-li-divider' />
+                            <div style={{ display: 'block', verticalAlign: 'top', marginRight: '0.4vw' }}>
+                                <div className='phone-info-left'>内存：</div>
+                                <div className='phone-info-right'>
+                                    {phoneSource[0].value.map((ele) => {
+                                        return (
+                                            <span>
+                                                {
+                                                    !!ele.size ? ele.size + '、' : null
+                                                }
+
+                                            </span>
+                                        )
+
+                                    })}
+                                </div>
+                            </div>
                         </div>
-
                     </div>
                 </div>
             )
@@ -163,22 +235,27 @@ class Index extends Component {
         })
     }
     addPhone = (phoneSource) => {
+        this.postItem(phoneSource[0].phone,1,'two')
         this.setState({
             phoneSource: [...this.state.phoneSource, ...phoneSource]
         })
     }
     componentWillMount = () => {
-        this.postItem(1)
+
         POST('/demo/getPhone.php', {}).then(app => {
             if (app.code == 0) {
                 this.setState({
-                    phone: app.result
+                    phone: app.result,
+                    phoneSource: !!app.result[0] ? [app.result[0]] : []
                 })
+                if (!!app.result[0])
+                    this.postItem(app.result[0].phone, 1, 'one')
             }
         })
     }
     render() {
         let { phoneSource, addVisible } = this.state
+        console.log(phoneSource)
         return (
             <div className='single-body' >
                 <div className='table'><span className='table-title'>手机产品属性情感分析结果</span>
@@ -189,7 +266,7 @@ class Index extends Component {
                 </div>
                 <div className='sort'><img src={!this.state.sortType ? SortDown : SortUp} onClick={this.sort} /></div>
                 <div className='tables'>
-                    <Bar data={this.state.data} />
+                    <Bar one={this.state.one} two={phoneSource.length == 2 ? this.state.two : []} />
                     <Divider type='vertical' className='tables-divider' />
                     <div className='tables-Right'>
                         <div>
@@ -218,9 +295,9 @@ class Index extends Component {
                             }
                         </span>
                         <div className='left-body'>
-                            <Pie className='left-pie one' data={this.state.data} item={1} />
-                            <Pie className='left-pie two' data={this.state.data} item={2} />
-                            <Pie className='left-pie three' data={this.state.data} item={3} />
+                            <Pie className='left-pie one' data={this.state.one} item={1} />
+                            <Pie className='left-pie two' data={this.state.one} item={2} />
+                            <Pie className='left-pie three' data={this.state.one} item={3} />
                         </div>
                     </div>
                     <Divider type='vertical' className='divider-pie' />
@@ -237,9 +314,9 @@ class Index extends Component {
                             }
                         </span>
                         <div className='right-body'>
-                            <Pie className='right-pie one' data={this.state.data} item={-1} />
-                            <Pie className='right-pie two' data={this.state.data} item={-2} />
-                            <Pie className='right-pie three' data={this.state.data} item={-3} />
+                            <Pie className='right-pie one' data={this.state.one} item={-1} />
+                            <Pie className='right-pie two' data={this.state.one} item={-2} />
+                            <Pie className='right-pie three' data={this.state.one} item={-3} />
                         </div>
 
                     </div>

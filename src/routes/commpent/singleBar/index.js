@@ -12,21 +12,15 @@ class Index extends Component {
     }
     componentWillReceiveProps = (nextProps) => {
         let xdata = [];
-        let gao = [];
-        let zhong = [];
-        let di = [];
-        console.log('di',nextProps.btngao)
-        nextProps.gao.map((ele) => {
+        let one = [];
+        let two = [];
+        nextProps.one.map((ele) => {
             xdata.push(ele.key)
-            gao.push(ele.value)
+            one.push(ele.value)
         })
-        nextProps.zhong.map((ele) => {
-            zhong.push(ele.value)
+        nextProps.two.map((ele) => {
+            two.push(ele.value)
         })
-        nextProps.di.map((ele) => {
-            di.push(ele.value)
-        })
-        let {btngao,btnzhong,btndi} = nextProps
         let option = {
             //--------------   提示框 -----------------
             tooltip: {
@@ -172,7 +166,7 @@ class Index extends Component {
             //------------ 内容数据  -----------------
             series: [
                  {
-                    name: '高端手机',             //---系列名称
+                    name: 'one',             //---系列名称
                     type: 'bar',                //---类型
                     legendHoverLink: true,       //---是否启用图例 hover 时的联动高亮
                     label: {                     //---图形上的文本标签
@@ -186,15 +180,16 @@ class Index extends Component {
                         barBorderRadius:[18,18,0,0],*/
                         normal: {
                             color: '#004EFF',
+                            
                             barBorderRadius: [5, 5, 0, 0],
                         },
                     },
                     barWidth: '10%',              //---柱形宽度
                     barCategoryGap: '20%',       //---柱形间距
-                    data: btngao!=0 ? gao:[]
+                    data: one
                 },
                 {
-                    name: '中端手机',             //---系列名称
+                    name: 'two',             //---系列名称
                     type: 'bar',                //---类型
                     legendHoverLink: true,       //---是否启用图例 hover 时的联动高亮
                     label: {                     //---图形上的文本标签
@@ -207,36 +202,15 @@ class Index extends Component {
                         /*color:'red',
                         barBorderRadius:[18,18,0,0],*/
                         normal: {
-                            color: '#00FFCC',
+                            color: '#FFFFFF',
+                            opacity: 0.19,
                             barBorderRadius: [5, 5, 0, 0],
                         },
                     },
                     barWidth: '10%',              //---柱形宽度
                     barCategoryGap: '20%',       //---柱形间距
-                    data:  btnzhong!=0 ? zhong:[]
+                    data:  two
                 },
-                {
-                    name: '低端手机',             //---系列名称
-                    type: 'bar',                //---类型
-                    legendHoverLink: true,       //---是否启用图例 hover 时的联动高亮
-                    label: {                     //---图形上的文本标签
-                        show: false,
-                        position: 'insideTop',   //---相对位置
-                        rotate: 0,               //---旋转角度
-                        color: '#eee',
-                    },
-                    itemStyle: {                 //---图形形状
-                        /*color:'red',
-                        barBorderRadius:[18,18,0,0],*/
-                        normal: {
-                            color: '#FF8600',
-                            barBorderRadius: [5, 5, 0, 0],
-                        },
-                    },
-                    barWidth: '10%',              //---柱形宽度
-                    barCategoryGap: '20%',       //---柱形间距
-                    data: btndi!=0?di:[]
-                }
             ]
         };
         let myChart = Echart.init(this.refs.charts);
