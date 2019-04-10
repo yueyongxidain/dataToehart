@@ -381,7 +381,7 @@ class Index extends Component {
                         </div>
                     </div>
                 </Carousel>
-            <AddModal date={this.state.phone.filter((ele) => { return ele.phone !== phoneSource[0].phone })} add={this.addPhone} addVisible={addVisible} cancle={this.cancle} />
+                <AddModal date={this.state.phone.filter((ele) => { return ele.phone !== phoneSource[0].phone })} add={this.addPhone} addVisible={addVisible} cancle={this.cancle} />
             </div >
         )
     }
