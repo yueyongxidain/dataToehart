@@ -25,7 +25,8 @@ class AddModal extends Component {
         super(props)
         this.state = {
             addVisible: props.addVisible || false,
-            date: props.date || []
+            date: props.date || [],
+            phone:[]
         }
     }
     componentWillReceiveProps = (nextProps) => {
@@ -83,7 +84,7 @@ class AddModal extends Component {
         })
     }
     render() {
-        const { loading, date, addVisible } = this.state;
+        const { loading, date,phone, addVisible } = this.state;
         const { form: { getFieldDecorator } } = this.props
         return (
             <Modal
@@ -139,7 +140,7 @@ class AddModal extends Component {
                                             optionFilterProp="children"
                                             placeholder={"全部"}
                                         >
-                                            {date.map((ele) => {
+                                            {phone.map((ele) => {
                                                 return <Option value={ele.phone} key={ele.phone}>{ele.phone}</Option>
                                             })}
                                         </Select>

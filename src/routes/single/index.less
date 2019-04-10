@@ -201,18 +201,14 @@
 .phone-divider {
     background-color: #000000 !important;
     color: #000000 !important;
-    position: absolute;
-    top: calc(calc(calc(100vh - 6.2vw)/100 * 42) / 2);
     width: 80%;
     min-width: 80%;
 }
 
 .phone-two {
-    position: relative;
-    top: 2vw;
+   
     font-size: 0.2vw;
     margin-right: 5vw;
-    font-size: 0.2vw;
     .phone-info {
         .phone-info-left {
             padding-left: 1vw;
@@ -233,6 +229,14 @@
             display: inline-block !important;
             margin-right: 0.4vw;
         }
+    }
+    .phone-name{
+        display: inline-block;
+        width:85%;
+    }
+    img{
+        display: inline-block;
+        width:1.2vw;
     }
 }
 
@@ -271,7 +275,7 @@
 
 .phone-type {
     font-family: PingFangSC-Medium;
-    margin-top: 1.6vw;
+    margin-top: 0.8vw;
     margin-bottom: 0.7vw;
     color: #FFFFFF;
     letter-spacing: 0;
@@ -285,11 +289,38 @@
 }
 
 .phone-name {
-    font-family: SourceHanSansSC-Normal;
-    font-size: 1vw;
-    color: #FFFFFF;
-    margin-bottom: 0.6vw;
-    letter-spacing: 0;
+    .ant-select-selection{
+        background: inherit;
+        border: none;
+    }
+    .ant-select{
+        width:12vw !important;
+    }
+    .ant-select-selection-selected-value{
+        opacity: 0.8;
+        font-family: SourceHanSansSC-Normal;
+        font-size: 1.4vw;
+        color: #FFFFFF;
+        margin-bottom: 0vw;
+        letter-spacing: 0;
+        padding-right:1vw !important;
+    }
+    .ant-select-selection__rendered{
+        width:100%;
+        padding-right:1vw !important;
+        margin-right: 1vw;
+        margin-left: 1vw;
+        line-height: 1.6vw;
+    }
+    .ant-select-selection--single{
+        height: 1.6vw;
+    }
+    .ant-select-arrow{
+        font-size: 0.8vw;
+        color: #FFFFFF;
+        right:0.5vw;
+        line-height:0.8vw;
+    }
 }
 
 .phone-li-divider {
