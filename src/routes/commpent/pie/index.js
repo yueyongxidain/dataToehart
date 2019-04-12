@@ -61,7 +61,7 @@ class Index extends Component {
     }
     render() {
         return (
-            <div ref='charts' className='pies'>
+            <div ref='charts' className='pies' onClick={this.props.onclick}>
 
             </div>
         )

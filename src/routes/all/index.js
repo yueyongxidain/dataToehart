@@ -7,6 +7,8 @@ import POST from '../../utils/request.js'
 import Bar from '../commpent/bar/index';
 import Pie from '../commpent/pie/index';
 import './index.less'
+
+
 const length = 0;
 class Index extends Component {
     constructor(props) {
@@ -73,6 +75,8 @@ class Index extends Component {
             }
         })
     }
+
+    
     componentWillMount = () => {
         this.postItem(1)
     }

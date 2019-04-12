@@ -8,8 +8,9 @@ import Bar from '../commpent/singleBar/index';
 import Pie from '../commpent/pie/index';
 import AddModal from './addModal'
 import Del from '../../assets/删除.png'
-import Ellipsis from 'ant-design-pro/lib/Ellipsis';
+import { routerRedux } from 'dva/router';
 import './index.less'
+import {cloneDeep} from 'lodash'
 const length = 0;
 const Option = Select.Option
 class Index extends Component {
@@ -311,6 +312,18 @@ class Index extends Component {
             }
         })
     }
+    //饼图点击事件
+    pieClick = (name,data,item)=>{
+        let datas =cloneDeep(data)
+        datas.sort((a, b) => {
+            if (a.value > b.value) return -1
+            if (a.value < b.value) return 1
+            else return 0
+        })
+        console.log('kkkkk',data)
+        let type = datas[item].key
+        this.props.dispatch(routerRedux.push("/home/detail?name="+name+'&type='+type))
+    }
     render() {
         let { phoneSource, addVisible } = this.state
         console.log(phoneSource)
@@ -343,6 +356,7 @@ class Index extends Component {
                     <div className='pie'>
                         <div className='left'>
                             <span className='left-title'>
+                                {!!phoneSource[0] ? phoneSource[0].phone : null}&nbsp;&nbsp;
                                 {
                                     this.state.barIndex == 1 ?
                                         '满意度最高的产品属性' :
@@ -354,14 +368,15 @@ class Index extends Component {
                                 }
                             </span>
                             <div className='left-body'>
-                                <Pie className='left-pie one' data={this.state.one} item={1} />
-                                <Pie className='left-pie two' data={this.state.one} item={2} />
-                                <Pie className='left-pie three' data={this.state.one} item={3} />
+                                <Pie className='left-pie one' data={this.state.one} item={1} onclick={()=> this.state.barIndex==4?this.pieClick(phoneSource[0].phone,this.state.one,0):null}/>
+                                <Pie className='left-pie two' data={this.state.one} item={2} onclick={()=>this.state.barIndex==4?this.pieClick(phoneSource[0].phone,this.state.one,1):null}/>
+                                <Pie className='left-pie three' data={this.state.one} item={3} onclick={()=>this.state.barIndex==4?this.pieClick(phoneSource[0].phone,this.state.one,2):null}/>
                             </div>
                         </div>
                         <Divider type='vertical' className='divider-pie' />
                         <div className='right'>
                             <span className='right-title'>
+                                {!!phoneSource[0] ? phoneSource[0].phone : null}&nbsp;&nbsp;
                                 {
                                     this.state.barIndex == 1 ?
                                         '满意度最高的产品属性' :
@@ -380,6 +395,48 @@ class Index extends Component {
 
                         </div>
                     </div>
+                    {phoneSource.length == 2 ? <div className='pie'>
+                        <div className='left'>
+                            <span className='left-title'>
+                                {!!phoneSource[1] ? phoneSource[1].phone : null}&nbsp;&nbsp;
+                                {
+                                    this.state.barIndex == 1 ?
+                                        '满意度最高的产品属性' :
+                                        this.state.barIndex == 2 ?
+                                            '关注度最高的产品属性' :
+                                            this.state.barIndex == 3 ?
+                                                '情感房差最高的产品属性' :
+                                                '需改进度最高的产品属性'
+                                }
+                            </span>
+                            <div className='left-body'>
+                                <Pie className='left-pie one' data={this.state.two || []} item={1} onclick={()=> this.state.barIndex==4?this.pieClick(phoneSource[1].phone,this.state.two,0):null}/>
+                                <Pie className='left-pie two' data={this.state.two || []} item={2} onclick={()=> this.state.barIndex==4?this.pieClick(phoneSource[1].phone,this.state.two,1):null}/>
+                                <Pie className='left-pie three' data={this.state.two || []} item={3} onclick={()=> this.state.barIndex==4?this.pieClick(phoneSource[1].phone,this.state.two,2):null}/>
+                            </div>
+                        </div>
+                        <Divider type='vertical' className='divider-pie' />
+                        <div className='right'>
+                            <span className='right-title'>
+                                {!!phoneSource[1] ? phoneSource[1].phone : null}&nbsp;&nbsp;
+                                {
+                                    this.state.barIndex == 1 ?
+                                        '满意度最高的产品属性' :
+                                        this.state.barIndex == 2 ?
+                                            '关注度最高的产品属性' :
+                                            this.state.barIndex == 3 ?
+                                                '情感房差最高的产品属性' :
+                                                '需改进度最高的产品属性'
+                                }
+                            </span>
+                            <div className='right-body'>
+                                <Pie className='right-pie one' data={this.state.two || []} item={-1} />
+                                <Pie className='right-pie two' data={this.state.two || []} item={-2} />
+                                <Pie className='right-pie three' data={this.state.two || []} item={-3} />
+                            </div>
+
+                        </div>
+                    </div> : null}
                 </Carousel>
                 <AddModal date={this.state.phone.filter((ele) => { return ele.phone !== phoneSource[0].phone })} add={this.addPhone} addVisible={addVisible} cancle={this.cancle} />
             </div >

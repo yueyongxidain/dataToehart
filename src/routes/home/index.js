@@ -7,6 +7,7 @@ import Icon from '../../assets/icon_home.png'
 import All from '../all'
 import Mult from '../mult'
 import Single from '../single'
+import Detail from '../detail';
 import './index.less'
 class Index extends Component {
     constructor(props) {
@@ -67,7 +68,7 @@ class Index extends Component {
                     <Route exact path="/home/all" component={All} />
                     <Route exact path="/home/mult" component={Mult} />
                     <Route exact path="/home/single" component={Single} />
-
+                    <Route path="/home/detail" exact component={Detail} />
                 </Switch>
 
             </div>
