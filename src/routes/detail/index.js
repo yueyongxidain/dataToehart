@@ -21,7 +21,9 @@ class Index extends Component {
             two: [],
             sortType: 0,
             phone: [],
-            phoneSource: []
+            phoneSource: [],
+            index:0,
+            rightDetail:''
         }
     }
     postItem = (name, item, stateName) => {
@@ -52,7 +54,16 @@ class Index extends Component {
     //散点图点击事件
     Click = (name)=>{
         const {data} = this.state;
-        
+        debugger
+        let res = data.filter((ele)=>{
+            return ele.key == name
+        })
+        debugger
+        this.setState({
+            rightDetail:res.length>0?res[0].string:''
+        })
+
+
     }
     componentDidMount = () => {
         const query = this.props.location.search // '?s=1&f=7'
@@ -60,6 +71,10 @@ class Index extends Component {
         const arrs = arr.split('&') // ['?s=', 'f=7']
         const fileName = arrs[0].split('=')[1] // '1'
         const fileType =  arrs[1].split('=')[1]// '7'
+        const index = arrs[2].split('=')[1]||0// '7'
+        this.setState({
+            index
+        })
         POST('/demo/getDetail.php', {name :fileName + '-' +fileType}).then(app => {
             if (app.code == 0) {
                 this.setState({
@@ -67,12 +82,12 @@ class Index extends Component {
                     phoneSource: !!app.result[0] ? [app.result[0]] : []
                 })
                 if (!!app.result[0])
-                    this.postItem(fileName, 1, 'one')
+                    this.postItem(fileName, 4, 'one')
             }
         })
     }
     render() {
-        let { phoneSource, addVisible ,data} = this.state
+        let { phoneSource, addVisible ,data,rightDetail} = this.state
 
         return (
             <div className='single-body' >
@@ -82,7 +97,11 @@ class Index extends Component {
                     <Bar data={data} click={this.Click} />
                     <Divider type='vertical' className='tables-divider' />
                     <div className='tables-Right'>
-                      
+                      {
+                         (rightDetail.split('、')||[]).map((ele)=>{
+                              return <div>{ele}</div>
+                          })
+                      }
                     </div>
                 </div>
                 <Divider className='divider' />
@@ -93,9 +112,9 @@ class Index extends Component {
                                 需改进度最高的产品属性
                             </span>
                             <div className='left-body'>
-                                <Pie className='left-pie one' data={this.state.one} item={1} />
-                                <Pie className='left-pie two' data={this.state.one} item={2} />
-                                <Pie className='left-pie three' data={this.state.one} item={3} />
+                                <Pie className='left-pie one' data={this.state.one} item={1} index={this.state.index==0}/>
+                                <Pie className='left-pie two' data={this.state.one} item={2} index={this.state.index==1}/>
+                                <Pie className='left-pie three' data={this.state.one} item={3} index={this.state.index==2}/>
                             </div>
                         </div>
                         <Divider type='vertical' className='divider-pie' />

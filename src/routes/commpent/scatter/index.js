@@ -14,6 +14,8 @@ class Index extends Component {
         let xdata = [];
         let ydata = [];
         let y = 0
+        let myChart = Echart.init(this.refs.charts);
+        myChart.off('click')
         nextProps.data.map((ele) => {
             xdata.push(ele.key)
             ydata.push(ele.value)
@@ -81,10 +83,11 @@ class Index extends Component {
                 }  
             }]  
         };
-        let myChart = Echart.init(this.refs.charts);
+      
         myChart.setOption(option);
-        myChart.on('dblclick', function (params) {
-            this.props.click()
+        myChart.on('click', function (params) {
+            console.log('dddddddddd',params)
+            nextProps.click(params.name)
         });
     }
     render() {

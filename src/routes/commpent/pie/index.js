@@ -10,6 +10,7 @@ class Index extends Component {
     componentWillReceiveProps = (nextProps) => {
         let data =cloneDeep(nextProps.data)
         let item = nextProps.item
+        let index = !!nextProps.index?true :false
         data.sort((a, b) => {
             if (a.value > b.value) return -1
             if (a.value < b.value) return 1
@@ -23,7 +24,7 @@ class Index extends Component {
                 trigger: 'item',
                 formatter: "{a} <br/>{b}: {c} ({d}%)"
             },
-            color: ["#00c0ef"],
+            color: index?['#FFFFFF']:["#00c0ef"],
             series: [
                 {
                     name: title,

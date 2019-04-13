@@ -322,7 +322,7 @@ class Index extends Component {
         })
         console.log('kkkkk',data)
         let type = datas[item].key
-        this.props.dispatch(routerRedux.push("/home/detail?name="+name+'&type='+type))
+        this.props.dispatch(routerRedux.push("/home/detail?name="+name+'&type='+type+'&index='+item))
     }
     render() {
         let { phoneSource, addVisible } = this.state
