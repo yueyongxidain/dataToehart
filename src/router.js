@@ -9,7 +9,7 @@ function RouterConfig({ history }) {
     <Router history={history}>
       <Switch>
         <Route path="/" exact component={Login} />
-        <Route path="/upload" exact component={Upload} />
+        <Route path="/upload" component={Upload} />
         <Route path="/home" component={Home} />
        
 

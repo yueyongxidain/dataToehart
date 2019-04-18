@@ -83,11 +83,11 @@ class Index extends Component {
     render() {
         return (
             <div className='all-body' >
-                <div className='table'><span className='table-title'>手机产品属性情感分析结果</span>
-                    <div className='table-button btn-one' onClick={this.btnOne} style={{ 'background-image': this.state.barIndex == 1 ? 'linear-gradient(-180deg, #00FFDE 0%, #004EFF 100%)' : null }}>满意度</div>
-                    <div className='table-button btn-two' onClick={this.btnTwo} style={{ 'background-image': this.state.barIndex == 2 ? 'linear-gradient(-180deg, #00FFDE 0%, #004EFF 100%)' : null }}>关注度</div>
-                    <div className='table-button btn-three' onClick={this.btnThree} style={{ 'background-image': this.state.barIndex == 3 ? 'linear-gradient(-180deg, #00FFDE 0%, #004EFF 100%)' : null }}>情感方差</div>
-                    <div className='table-button btn-four' onClick={this.btnFour} style={{ 'background-image': this.state.barIndex == 4 ? 'linear-gradient(-180deg, #00FFDE 0%, #004EFF 100%)' : null }}>需改进度</div>
+                <div className='table'><span className='table-title'>⼿机评价指标得分</span>
+                    <div className='table-button btn-one' onClick={this.btnOne} style={{ 'background-image': this.state.barIndex == 1 ? 'linear-gradient(75deg, #00FFDE 0%, #004EFF 100%)' : null }}>满意度</div>
+                    <div className='table-button btn-two' onClick={this.btnTwo} style={{ 'background-image': this.state.barIndex == 2 ? 'linear-gradient(75deg, #00FFDE 0%, #004EFF 100%)' : null }}>关注度</div>
+                    <div className='table-button btn-three' onClick={this.btnThree} style={{ 'background-image': this.state.barIndex == 3 ? 'linear-gradient(75deg, #00FFDE 0%, #004EFF 100%)' : null }}>情感方差</div>
+                    <div className='table-button btn-four' onClick={this.btnFour} style={{ 'background-image': this.state.barIndex == 4 ? 'linear-gradient(75deg, #00FFDE 0%, #004EFF 100%)' : null }}>需改进度</div>
                 </div>
                 <div className='sort'><img src={!this.state.sortType ? SortDown : SortUp} onClick={this.sort} /></div>
                 <div className='tables'>
@@ -118,12 +118,12 @@ class Index extends Component {
                         <span className='right-title'>
                             {
                                 this.state.barIndex == 1 ?
-                                    '满意度最高的产品属性' :
+                                    '满意度最低的产品属性' :
                                     this.state.barIndex == 2 ?
-                                        '关注度最高的产品属性' :
+                                        '关注度最低的产品属性' :
                                         this.state.barIndex == 3 ?
-                                            '情感房差最高的产品属性' :
-                                            '需改进度最高的产品属性'
+                                            '情感房差最低的产品属性' :
+                                            '需改进度最低的产品属性'
                             }
                         </span>
                         <div className='right-body'>

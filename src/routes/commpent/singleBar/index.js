@@ -6,6 +6,7 @@ import './index.less'
 class Index extends Component {
     constructor(props) {
         super(props)
+        this.resizeBind = this.resizeTTY.bind(this)
         this.state = {
             data: this.props.data || []
         }
@@ -215,6 +216,16 @@ class Index extends Component {
         };
         let myChart = Echart.init(this.refs.charts);
         myChart.setOption(option);
+    }
+    componentDidMount = () => {
+        window.addEventListener('resize', this.resizeBind)
+    }
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.resizeBind)
+    }
+    resizeTTY = () => {
+        let myChart = Echart.init(this.refs.charts);
+        myChart.resize()
     }
     render() {
         return (

@@ -12,10 +12,11 @@ class Index extends Component {
         validateFields((error, values) => {
             if (!!error) return;
             POST('/demo/login.php', { userName: 'admin', passWord: '123456' }).then(app => {
-                debugger
                 if (app.code == 0) {
                     console.log('登陆成功')
-                    window.location.href = window.location.origin + '/#/upload';
+                    debugger
+                    const urlParams = new URL(window.location.href);
+                    window.location.href = urlParams.origin + '/#/upload';
                 }
             })
         })
@@ -33,14 +34,14 @@ class Index extends Component {
                         {getFieldDecorator('userName', {
                             rules: [{ required: true, message: '请输入用户名' }],
                         })(
-                            <Input placeholder={"Username"} />
+                            <Input placeholder={" 用户名"} />
                         )}
                     </Form.Item>
                     <Form.Item>
                         {getFieldDecorator('passWord', {
                             rules: [{ required: true, message: '请输入密码' }],
                         })(
-                            <Input placeholder="Password" />
+                            <Input placeholder=" 密码" />
                         )}
                     </Form.Item>
                     <Form.Item>

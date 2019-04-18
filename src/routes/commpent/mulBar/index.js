@@ -6,6 +6,7 @@ import './index.less'
 class Index extends Component {
     constructor(props) {
         super(props)
+        this.resizeBind = this.resizeTTY.bind(this)
         this.state = {
             data: this.props.data || []
         }
@@ -47,7 +48,8 @@ class Index extends Component {
                 show: true,                 //---是否显示直角坐标系网格
                 top: 80,
                 left: 60,
-                right: 20,                     //---相对位置，top\bottom\left\right  
+                right: 20,    
+                bottom: 25,                 //---相对位置，top\bottom\left\right  
                 containLabel: false,         //---grid 区域是否包含坐标轴的刻度标签
                 tooltip: {                   //---鼠标焦点放在图形上，产生的提示框
                     show: true,
@@ -62,6 +64,7 @@ class Index extends Component {
                 show: true,                  //---是否显示
                 position: 'bottom',          //---x轴位置
                 offset: 0,                   //---x轴相对于默认位置的偏移
+                boundaryGap: true,
                 type: 'category',            //---轴类型，默认'category'
                 /*name:'月份', */             //---轴名称
                 nameLocation: 'end',         //---轴名称相对位置
@@ -87,6 +90,7 @@ class Index extends Component {
                 axisTick: {                  //---坐标轴 刻度
                     show: true,                  //---是否显示
                     inside: true,                //---是否朝内
+                    interval: 0,
                     lengt: 3,                    //---长度
                     lineStyle: {
                         width: 1,
@@ -95,13 +99,15 @@ class Index extends Component {
                 },
                 axisLabel: {                 //---坐标轴 标签
                     show: true,                  //---是否显示
-                    inside: false,               //---是否朝内
+                    inside: true,               //---是否朝内
+                    interval: 0,
                     rotate: 0,                   //---旋转角度   
                     margin: 5,                  //---刻度标签与轴线之间的距离
                     //color:,             //---默认取轴线的颜色
                 },
                 splitLine: {                 //---grid 区域中的分隔线
                     show: true,                 //---是否显示，'category'类目轴不显示，此时我的X轴为类目轴，splitLine属性是无意义的
+                    interval:0,
                     lineStyle: {
                         //color:'red',
                         //width:1,
@@ -118,6 +124,13 @@ class Index extends Component {
                 show: true,                  //---是否显示
                 position: 'left',            //---y轴位置
                 offset: 0,                   //---y轴相对于默认位置的偏移
+                min: function(value){
+                    return -(value.max*1.1/9).toFixed(2);
+                },
+                max:function(value){
+                    return (value.max*1.1).toFixed(2);
+                },
+                splitNumber:10,
                 type: 'value',           //---轴类型，默认'category'
                 /*name:'销量',*/              //---轴名称
                 nameLocation: 'end',         //---轴名称相对位置value
@@ -128,7 +141,7 @@ class Index extends Component {
                 nameGap: 15,                 //---坐标轴名称与轴线之间的距离
                 //nameRotate:270,           //---坐标轴名字旋转
                 axisLine: {                  //---坐标轴 轴线------------>销量
-                    show: true,                  //---是否显示
+                    show: false,                  //---是否显示
                     //------------------- 箭头 -------------------------
                     symbol: ['none', 'arrow'],   //---是否显示轴线箭头
                     symbolSize: [8, 8],         //---箭头大小
@@ -144,6 +157,7 @@ class Index extends Component {
                     show: true,                  //---是否显示
                     inside: true,                //---是否朝内
                     lengt: 3,                    //---长度
+                    splitNumber:15,
                     lineStyle: {
                         //color:'red',          //---默认取轴线的颜色
                         width: 1,
@@ -186,7 +200,7 @@ class Index extends Component {
                         barBorderRadius:[18,18,0,0],*/
                         normal: {
                             color: '#004EFF',
-                            barBorderRadius: [5, 5, 0, 0],
+                            barBorderRadius: [5, 5, 5, 5],
                         },
                     },
                     barWidth: '10%',              //---柱形宽度
@@ -208,7 +222,7 @@ class Index extends Component {
                         barBorderRadius:[18,18,0,0],*/
                         normal: {
                             color: '#00FFCC',
-                            barBorderRadius: [5, 5, 0, 0],
+                            barBorderRadius: [5, 5, 5, 5],
                         },
                     },
                     barWidth: '10%',              //---柱形宽度
@@ -230,7 +244,7 @@ class Index extends Component {
                         barBorderRadius:[18,18,0,0],*/
                         normal: {
                             color: '#FF8600',
-                            barBorderRadius: [5, 5, 0, 0],
+                            barBorderRadius: [5, 5, 5, 5],
                         },
                     },
                     barWidth: '10%',              //---柱形宽度
@@ -241,6 +255,16 @@ class Index extends Component {
         };
         let myChart = Echart.init(this.refs.charts);
         myChart.setOption(option);
+    }
+    componentDidMount = () => {
+        window.addEventListener('resize', this.resizeBind)
+    }
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.resizeBind)
+    }
+    resizeTTY = () => {
+        let myChart = Echart.init(this.refs.charts);
+        myChart.resize()
     }
     render() {
         return (

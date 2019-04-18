@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'dva';
 import { Divider, Icon, Select, Carousel } from 'antd'
-import SortDown from '../../assets/icon_sort_down.png'
-import SortUp from '../../assets/icon_sort_up.png'
+import { routerRedux } from 'dva/router';
 import POST from '../../utils/request.js'
 import Bar from '../commpent/scatter/index';
 import Pie from '../commpent/pie/index';
@@ -16,14 +15,14 @@ class Index extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            data:[],
+            data: [],
             one: [],
             two: [],
             sortType: 0,
             phone: [],
             phoneSource: [],
-            index:0,
-            rightDetail:''
+            index: 0,
+            rightDetail: ''
         }
     }
     postItem = (name, item, stateName) => {
@@ -52,17 +51,22 @@ class Index extends Component {
         })
     }
     //散点图点击事件
-    Click = (name)=>{
-        const {data} = this.state;
+    Click = (name) => {
+        const { data } = this.state;
         debugger
-        let res = data.filter((ele)=>{
+        let res = data.filter((ele) => {
             return ele.key == name
         })
         debugger
         this.setState({
-            rightDetail:res.length>0?res[0].string:''
+            rightDetail: res.length > 0 ? res[0].string : ''
         })
 
+
+    }
+    //返回点击事件
+    back = ()=>{
+        this.props.dispatch(routerRedux.goBack())
 
     }
     componentDidMount = () => {
@@ -70,12 +74,12 @@ class Index extends Component {
         const arr = decodeURIComponent(query.split('?')[1]) // ['?s=', 'f=7']
         const arrs = arr.split('&') // ['?s=', 'f=7']
         const fileName = arrs[0].split('=')[1] // '1'
-        const fileType =  arrs[1].split('=')[1]// '7'
-        const index = arrs[2].split('=')[1]||0// '7'
+        const fileType = arrs[1].split('=')[1]// '7'
+        const index = arrs[2].split('=')[1] || 0// '7'
         this.setState({
             index
         })
-        POST('/demo/getDetail.php', {name :fileName + '-' +fileType}).then(app => {
+        POST('/demo/getDetail.php', { name: fileName + '-' + fileType }).then(app => {
             if (app.code == 0) {
                 this.setState({
                     data: app.result,
@@ -87,21 +91,23 @@ class Index extends Component {
         })
     }
     render() {
-        let { phoneSource, addVisible ,data,rightDetail} = this.state
+        let { phoneSource, addVisible, data, rightDetail } = this.state
 
         return (
             <div className='single-body' >
-                <div className='table'><span className='table-title'>手机产品属性情感分析结果</span>
+                <div className='table'>
+                    <span className='table-title'>手机产品属性情感分析结果</span>
                 </div>
+                <div className='single-back' onClick={this.back}>返回</div>
                 <div className='tables'>
                     <Bar data={data} click={this.Click} />
                     <Divider type='vertical' className='tables-divider' />
                     <div className='tables-Right'>
-                      {
-                         (rightDetail.split('、')||[]).map((ele)=>{
-                              return <div>{ele}</div>
-                          })
-                      }
+                        {
+                            (rightDetail.length>0?rightDetail.split('、') :[]).map((ele) => {
+                                return <div className='table-Right-desc'>{ele}</div>
+                            })
+                        }
                     </div>
                 </div>
                 <Divider className='divider' />
@@ -112,9 +118,9 @@ class Index extends Component {
                                 需改进度最高的产品属性
                             </span>
                             <div className='left-body'>
-                                <Pie className='left-pie one' data={this.state.one} item={1} index={this.state.index==0}/>
-                                <Pie className='left-pie two' data={this.state.one} item={2} index={this.state.index==1}/>
-                                <Pie className='left-pie three' data={this.state.one} item={3} index={this.state.index==2}/>
+                                <Pie className='left-pie one' data={this.state.one} item={1} index={this.state.index == 0} />
+                                <Pie className='left-pie two' data={this.state.one} item={2} index={this.state.index == 1} />
+                                <Pie className='left-pie three' data={this.state.one} item={3} index={this.state.index == 2} />
                             </div>
                         </div>
                         <Divider type='vertical' className='divider-pie' />

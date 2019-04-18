@@ -44,7 +44,24 @@ class Index extends Component {
         })
         this.props.dispatch(routerRedux.push("/home/single"))
     }
-
+    componentWillMount = () => {
+        debugger
+        if (this.props.location.pathname == '/home/all') {
+            this.setState({
+                index: 1
+            })
+        }
+        if (this.props.location.pathname == '/home/mult') {
+            this.setState({
+                index: 2
+            })
+        }
+        if (this.props.location.pathname == '/home/single') {
+            this.setState({
+                index: 3
+            })
+        }
+    }
     render() {
         return (
             <div className='home-body'>
@@ -61,7 +78,7 @@ class Index extends Component {
                 <div className='menu'>
                     <div className='menu-button one' onClick={this.one} style={{ 'background-image': this.state.index == 1 ? 'linear-gradient(-180deg, #00FFDE 0%, #004EFF 100%)' : null }}>总体手机分析</div>
                     <div className='menu-button two' onClick={this.two} style={{ 'background-image': this.state.index == 2 ? 'linear-gradient(-180deg, #00FFDE 0%, #004EFF 100%)' : null }}>多种手机分析</div>
-                    <div className='menu-button three' onClick={this.three} style={{ 'background-image': this.state.index == 3 ? 'linear-gradient(-180deg, #00FFDE 0%, #004EFF 100%)' : null }}>单种手机分析</div>
+                    <div className='menu-button three' onClick={this.three} style={{ 'background-image': this.state.index == 3 ? 'linear-gradient(-180deg, #00FFDE 0%, #004EFF 100%)' : null }}>单款手机分析</div>
                 </div>
                 <Switch>
                     <Redirect exact from="/home" to="/home/all" />

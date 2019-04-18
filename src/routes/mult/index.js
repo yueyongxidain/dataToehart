@@ -10,6 +10,8 @@ import Btn_white from '../../assets/btn_white.png'
 import Btn_gao from '../../assets/btn_gao.png'
 import Btn_zhong from '../../assets/btn_zhong.png'
 import Btn_di from '../../assets/btn_di.png'
+import { routerRedux } from 'dva/router';
+import { cloneDeep } from 'lodash';
 import './index.less'
 const length = 0;
 class Index extends Component {
@@ -204,6 +206,18 @@ class Index extends Component {
         this.postItem(1);
 
     }
+    //饼图点击事件
+    pieClick = (name,data,item)=>{
+        let datas =cloneDeep(data)
+        datas.sort((a, b) => {
+            if (a.value > b.value) return -1
+            if (a.value < b.value) return 1
+            else return 0
+        })
+        console.log('kkkkk',data)
+        let type = datas[item].key
+        this.props.dispatch(routerRedux.push("/home/detail?name="+name+'&type='+type+'&index='+item))
+    }
     render() {
         const { gaoBtn, zhongBtn, diBtn } = this.state
         let show = this.Sortimg()
@@ -218,9 +232,6 @@ class Index extends Component {
                 <div className='sort'>{show ? <img src={!this.state.sortType ? SortDown : SortUp} onClick={this.sort} /> : null}</div>
                 <div className='tables'>
                     <Bar gao={this.state.gao} zhong={this.state.zhong} di={this.state.di} btngao={gaoBtn} btnzhong={zhongBtn} btndi={diBtn} />
-                    <div className='tooltip1'><div className='tooltip-icon'> &nbsp; &nbsp; &nbsp; &nbsp;</div><span> &nbsp;高端手机</span></div>
-                    <div className='tooltip2'><div className='tooltip-icon'>&nbsp; &nbsp; &nbsp; &nbsp;</div><span > &nbsp;中端手机</span></div>
-                    <div className='tooltip3'><div className='tooltip-icon'>&nbsp; &nbsp; &nbsp; &nbsp;</div><span> &nbsp;低端手机</span></div>
                     <Divider type='vertical' className='tables-divider' />
                     <div className='tables-Right'>
                         <div>
@@ -261,9 +272,9 @@ class Index extends Component {
                                 }
                             </span>
                             <div className='left-body'>
-                                <Pie className='left-pie' data={this.state.gao} item={1} />
-                                <Pie className='left-pie' data={this.state.gao} item={2} />
-                                <Pie className='left-pie' data={this.state.gao} item={3} />
+                                <Pie className='left-pie' data={this.state.gao} item={1} onclick={()=> this.state.barIndex==4?this.pieClick('高端手机',this.state.gao,0):null}/>
+                                <Pie className='left-pie' data={this.state.gao} item={2} onclick={()=> this.state.barIndex==4?this.pieClick('高端手机',this.state.gao,1):null}/>
+                                <Pie className='left-pie' data={this.state.gao} item={3} onclick={()=> this.state.barIndex==4?this.pieClick('高端手机',this.state.gao,2):null}/>
                             </div>
                         </div>
                         <Divider type='vertical' className='divider-pie' />
@@ -271,12 +282,12 @@ class Index extends Component {
                             <span className='right-title'>
                                 {
                                     this.state.barIndex == 1 ?
-                                        '满意度最高的产品属性-高端' :
+                                        '满意度最低的产品属性-高端' :
                                         this.state.barIndex == 2 ?
-                                            '关注度最高的产品属性-高端' :
+                                            '关注度最低的产品属性-高端' :
                                             this.state.barIndex == 3 ?
-                                                '情感房差最高的产品属性-高端' :
-                                                '需改进度最高的产品属性-高端'
+                                                '情感房差最低的产品属性-高端' :
+                                                '需改进度最低的产品属性-高端'
                                 }
                             </span>
                             <div className='right-body'>
@@ -311,12 +322,12 @@ class Index extends Component {
                             <span className='right-title'>
                                 {
                                     this.state.barIndex == 1 ?
-                                        '满意度最高的产品属性-中端' :
+                                        '满意度最低的产品属性-中端' :
                                         this.state.barIndex == 2 ?
-                                            '关注度最高的产品属性-中端' :
+                                            '关注度最低的产品属性-中端' :
                                             this.state.barIndex == 3 ?
-                                                '情感房差最高的产品属性-中端' :
-                                                '需改进度最高的产品属性-中端'
+                                                '情感房差最低的产品属性-中端' :
+                                                '需改进度最低的产品属性-中端'
                                 }
                             </span>
                             <div className='right-body'>
@@ -352,12 +363,12 @@ class Index extends Component {
                             <span className='right-title'>
                                 {
                                     this.state.barIndex == 1 ?
-                                        '满意度最高的产品属性-低端' :
+                                        '满意度最低的产品属性-低端' :
                                         this.state.barIndex == 2 ?
-                                            '关注度最高的产品属性-低端' :
+                                            '关注度最低的产品属性-低端' :
                                             this.state.barIndex == 3 ?
-                                                '情感房差最高的产品属性-低端' :
-                                                '需改进度最高的产品属性-低端'
+                                                '情感房差最低的产品属性-低端' :
+                                                '需改进度最低的产品属性-低端'
                                 }
                             </span>
                             <div className='right-body'>

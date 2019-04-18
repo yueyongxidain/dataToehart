@@ -10,7 +10,7 @@ import AddModal from './addModal'
 import Del from '../../assets/删除.png'
 import { routerRedux } from 'dva/router';
 import './index.less'
-import {cloneDeep} from 'lodash'
+import { cloneDeep } from 'lodash'
 const length = 0;
 const Option = Select.Option
 class Index extends Component {
@@ -69,14 +69,14 @@ class Index extends Component {
     //排序点击
     sort = (e) => {
         e.stopPropagation()
-        let { data, sortType } = this.state
-        data.sort((a, b) => {
+        let { one, sortType } = this.state
+        one.sort((a, b) => {
             if (a.value > b.value) return sortType ? -1 : 1
             if (a.value < b.value) return sortType ? 1 : -1
             else return 0
         })
         this.setState({
-            data: data,
+            one: one,
             sortType: sortType ? 0 : 1
         })
     }
@@ -313,16 +313,16 @@ class Index extends Component {
         })
     }
     //饼图点击事件
-    pieClick = (name,data,item)=>{
-        let datas =cloneDeep(data)
+    pieClick = (name, data, item) => {
+        let datas = cloneDeep(data)
         datas.sort((a, b) => {
             if (a.value > b.value) return -1
             if (a.value < b.value) return 1
             else return 0
         })
-        console.log('kkkkk',data)
+        console.log('kkkkk', data)
         let type = datas[item].key
-        this.props.dispatch(routerRedux.push("/home/detail?name="+name+'&type='+type+'&index='+item))
+        this.props.dispatch(routerRedux.push("/home/detail?name=" + name + '&type=' + type + '&index=' + item))
     }
     render() {
         let { phoneSource, addVisible } = this.state
@@ -335,7 +335,7 @@ class Index extends Component {
                     <div className='table-button btn-three' onClick={this.btnThree} style={{ 'background-image': this.state.barIndex == 3 ? 'linear-gradient(-180deg, #00FFDE 0%, #004EFF 100%)' : null }}>情感方差</div>
                     <div className='table-button btn-four' onClick={this.btnFour} style={{ 'background-image': this.state.barIndex == 4 ? 'linear-gradient(-180deg, #00FFDE 0%, #004EFF 100%)' : null }}>需改进度</div>
                 </div>
-                <div className='sort'><img src={!this.state.sortType ? SortDown : SortUp} onClick={this.sort} /></div>
+                {phoneSource.length > 1 ? null : <div className='sort'><img src={!this.state.sortType ? SortDown : SortUp} onClick={this.sort} /></div>}
                 <div className='tables'>
                     <Bar one={this.state.one} two={phoneSource.length == 2 ? this.state.two : []} />
                     <Divider type='vertical' className='tables-divider' />
@@ -368,9 +368,9 @@ class Index extends Component {
                                 }
                             </span>
                             <div className='left-body'>
-                                <Pie className='left-pie one' data={this.state.one} item={1} onclick={()=> this.state.barIndex==4?this.pieClick(phoneSource[0].phone,this.state.one,0):null}/>
-                                <Pie className='left-pie two' data={this.state.one} item={2} onclick={()=>this.state.barIndex==4?this.pieClick(phoneSource[0].phone,this.state.one,1):null}/>
-                                <Pie className='left-pie three' data={this.state.one} item={3} onclick={()=>this.state.barIndex==4?this.pieClick(phoneSource[0].phone,this.state.one,2):null}/>
+                                <Pie className='left-pie one' data={this.state.one} item={1} onclick={() => this.state.barIndex == 4 ? this.pieClick(phoneSource[0].phone, this.state.one, 0) : null} />
+                                <Pie className='left-pie two' data={this.state.one} item={2} onclick={() => this.state.barIndex == 4 ? this.pieClick(phoneSource[0].phone, this.state.one, 1) : null} />
+                                <Pie className='left-pie three' data={this.state.one} item={3} onclick={() => this.state.barIndex == 4 ? this.pieClick(phoneSource[0].phone, this.state.one, 2) : null} />
                             </div>
                         </div>
                         <Divider type='vertical' className='divider-pie' />
@@ -410,9 +410,9 @@ class Index extends Component {
                                 }
                             </span>
                             <div className='left-body'>
-                                <Pie className='left-pie one' data={this.state.two || []} item={1} onclick={()=> this.state.barIndex==4?this.pieClick(phoneSource[1].phone,this.state.two,0):null}/>
-                                <Pie className='left-pie two' data={this.state.two || []} item={2} onclick={()=> this.state.barIndex==4?this.pieClick(phoneSource[1].phone,this.state.two,1):null}/>
-                                <Pie className='left-pie three' data={this.state.two || []} item={3} onclick={()=> this.state.barIndex==4?this.pieClick(phoneSource[1].phone,this.state.two,2):null}/>
+                                <Pie className='left-pie one' data={this.state.two || []} item={1} onclick={() => this.state.barIndex == 4 ? this.pieClick(phoneSource[1].phone, this.state.two, 0) : null} />
+                                <Pie className='left-pie two' data={this.state.two || []} item={2} onclick={() => this.state.barIndex == 4 ? this.pieClick(phoneSource[1].phone, this.state.two, 1) : null} />
+                                <Pie className='left-pie three' data={this.state.two || []} item={3} onclick={() => this.state.barIndex == 4 ? this.pieClick(phoneSource[1].phone, this.state.two, 2) : null} />
                             </div>
                         </div>
                         <Divider type='vertical' className='divider-pie' />
