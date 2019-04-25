@@ -58,7 +58,7 @@ class Index extends Component {
                            
                             position: 'center',
                             formatter: [
-                                '{a|' + num + '}',
+                                '{a|' + (num*1).toFixed(3) + '}',
                                 '{b|' + title + '}'
                             ].join('\r\n\r\n'),
                             rich: {
@@ -68,7 +68,7 @@ class Index extends Component {
                                     height: 40
                                 },
                                 b: {
-                                    fontSize: 14,
+                                    fontSize: 15,
                                     color: '#FFFFFF'
                                 },
                             },

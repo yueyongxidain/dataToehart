@@ -104,7 +104,6 @@ class AddModal extends Component {
                                     {...formLayout}
                                 >
                                     {getFieldDecorator('type', {
-                                        // initialValue: currentData.id,
                                         rules: [{ required: true, message: '请选择' }],
                                     })(
                                         <Select
@@ -118,6 +117,7 @@ class AddModal extends Component {
                                             }
                                         >
                                             <Option value={'高端手机'} key={'高端手机'}>高端手机</Option>
+                                            <Option value={'中端手机'} key={'中端手机'}>中端手机</Option>
                                             <Option value={'低端手机'} key={'低端手机'}>低端手机</Option>
                                         </Select>
                                     )}
@@ -130,7 +130,6 @@ class AddModal extends Component {
                                     {...formLayout}
                                 >
                                     {getFieldDecorator('phone', {
-                                        // initialValue: currentData.k2,
                                         rules: [{ required: true, message: '请选择' }],
                                     })(
                                         <Select

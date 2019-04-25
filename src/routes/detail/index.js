@@ -5,9 +5,7 @@ import { routerRedux } from 'dva/router';
 import POST from '../../utils/request.js'
 import Bar from '../commpent/scatter/index';
 import Pie from '../commpent/pie/index';
-// import AddModal from './addModal'
-import Del from '../../assets/删除.png'
-import Ellipsis from 'ant-design-pro/lib/Ellipsis';
+import {cloneDeep} from 'lodash'
 import './index.less'
 const length = 0;
 const Option = Select.Option
@@ -22,7 +20,10 @@ class Index extends Component {
             phone: [],
             phoneSource: [],
             index: 0,
-            rightDetail: ''
+            rightDetail: '',
+            fileName:'',
+            backItem:0,
+            single:null
         }
     }
     postItem = (name, item, stateName) => {
@@ -52,39 +53,86 @@ class Index extends Component {
     }
     //散点图点击事件
     Click = (name) => {
-        const { data } = this.state;
         debugger
+        const { data } = this.state;
         let res = data.filter((ele) => {
             return ele.key == name
         })
-        debugger
         this.setState({
             rightDetail: res.length > 0 ? res[0].string : ''
         })
 
 
     }
+    init=()=>{
+        const {data} = this.state
+        let sortData= cloneDeep(data);
+        sortData=sortData.sort((a,b)=>{
+            if (a.value*1 > b.value*1) return -1
+            if (a.value*1 < b.value*1) return 1
+            else return 0
+        })
+        if(!!sortData[0]){
+            setTimeout(this.Click(sortData[0].key),3000)
+        }
+       
+    }
     //返回点击事件
     back = ()=>{
-        this.props.dispatch(routerRedux.goBack())
+        const {backItem,single} = this.state
+        debugger
+       if(single){
+        this.props.dispatch(routerRedux.push('/home/single?backItem='+backItem))
+       }
+       else{
+        this.props.dispatch(routerRedux.push('/home/mult?backItem='+backItem))
+       }
+        
 
     }
-    componentDidMount = () => {
-        const query = this.props.location.search // '?s=1&f=7'
-        const arr = decodeURIComponent(query.split('?')[1]) // ['?s=', 'f=7']
-        const arrs = arr.split('&') // ['?s=', 'f=7']
-        const fileName = arrs[0].split('=')[1] // '1'
-        const fileType = arrs[1].split('=')[1]// '7'
-        const index = arrs[2].split('=')[1] || 0// '7'
+     //饼图点击事件
+     pieClick = (data, index) => {
+        let sortData= cloneDeep(data);
+        sortData=sortData.sort((a,b)=>{
+            if (a.value*1 > b.value*1) return -1
+            if (a.value*1 < b.value*1) return 1
+            else return 0
+        })
+        let fileType=sortData[index].key||''
+        const {fileName} = this.state
         this.setState({
-            index
+            index:index
         })
         POST('/demo/getDetail.php', { name: fileName + '-' + fileType }).then(app => {
             if (app.code == 0) {
                 this.setState({
                     data: app.result,
                     phoneSource: !!app.result[0] ? [app.result[0]] : []
-                })
+                },this.init)
+            }
+        })
+    }
+    componentDidMount = () => {
+        const query = this.props.location.search 
+        const arr = decodeURIComponent(query.split('?')[1]) 
+        const arrs = arr.split('&') 
+        const fileName = arrs[0].split('=')[1] 
+        const fileType = arrs[1].split('=')[1]
+        const index = arrs[2].split('=')[1] || 0
+        const backItem = !!arrs[3]?arrs[3].split('=')[1] : 0
+        const single = !!arrs[4]?arrs[4].split('=')[1] : null
+        this.setState({
+            index,
+            fileName,
+            backItem,
+            single
+        })
+        POST('/demo/getDetail.php', { name: fileName + '-' + fileType }).then(app => {
+            if (app.code == 0) {
+                this.setState({
+                    data: app.result,
+                    phoneSource: !!app.result[0] ? [app.result[0]] : []
+                },this.init)
                 if (!!app.result[0])
                     this.postItem(fileName, 4, 'one')
             }
@@ -96,7 +144,7 @@ class Index extends Component {
         return (
             <div className='single-body' >
                 <div className='table'>
-                    <span className='table-title'>手机产品属性情感分析结果</span>
+                    <span className='table-title'>⼿机评价指标得分</span>
                 </div>
                 <div className='single-back' onClick={this.back}>返回</div>
                 <div className='tables'>
@@ -111,22 +159,21 @@ class Index extends Component {
                     </div>
                 </div>
                 <Divider className='divider' />
-                <Carousel vertical className='Carousel'>
                     <div className='pie'>
                         <div className='left'>
                             <span className='left-title'>
                                 需改进度最高的产品属性
                             </span>
                             <div className='left-body'>
-                                <Pie className='left-pie one' data={this.state.one} item={1} index={this.state.index == 0} />
-                                <Pie className='left-pie two' data={this.state.one} item={2} index={this.state.index == 1} />
-                                <Pie className='left-pie three' data={this.state.one} item={3} index={this.state.index == 2} />
+                                <Pie className='left-pie one' data={this.state.one} item={1} index={this.state.index == 0} onclick={() => this.pieClick(this.state.one, 0)}/>
+                                <Pie className='left-pie two' data={this.state.one} item={2} index={this.state.index == 1}  onclick={() => this.pieClick(this.state.one, 1)}/>
+                                <Pie className='left-pie three' data={this.state.one} item={3} index={this.state.index == 2}  onclick={() => this.pieClick(this.state.one, 2)}/>
                             </div>
                         </div>
                         <Divider type='vertical' className='divider-pie' />
                         <div className='right'>
                             <span className='right-title'>
-                                需改进度最高的产品属性
+                                需改进度最低的产品属性
                             </span>
                             <div className='right-body'>
                                 <Pie className='right-pie one' data={this.state.one} item={-1} />
@@ -136,7 +183,7 @@ class Index extends Component {
 
                         </div>
                     </div>
-                </Carousel>
+              
             </div >
         )
     }

@@ -11,8 +11,8 @@ import Del from '../../assets/删除.png'
 import { routerRedux } from 'dva/router';
 import './index.less'
 import { cloneDeep } from 'lodash'
-const length = 0;
 const Option = Select.Option
+let color = 1;
 class Index extends Component {
     constructor(props) {
         super(props)
@@ -147,11 +147,22 @@ class Index extends Component {
                                 <div className='phone-info-left'>颜色：</div>
                                 <div className='phone-info-right'>
                                     {phoneSource[0].value.map((ele) => {
-                                        return (
-                                            <span >
-                                                {ele.color}、
-                                        </span>
-                                        )
+                                        debugger
+                                        if (color == phoneSource[0].value.length) {
+                                            color = 1
+                                            return (
+                                                <span >
+                                                    {ele.color}
+                                                </span>)
+                                        }
+                                        else {
+                                            color++
+                                            return (
+                                                <span >
+                                                    {ele.color}、
+                                            </span>
+                                            )
+                                        }
 
                                     })}
                                 </div>
@@ -162,15 +173,10 @@ class Index extends Component {
                                 <div className='phone-info-left'>内存：</div>
                                 <div className='phone-info-right'>
                                     {phoneSource[0].value.map((ele) => {
+                                      
                                         return (
-                                            <span>
-                                                {
-                                                    !!ele.size ? ele.size + '、' : null
-                                                }
-
-                                            </span>
+                                            !!ele.size ? <span>{ele.size}</span> : null
                                         )
-
                                     })}
                                 </div>
                             </div>
@@ -203,11 +209,22 @@ class Index extends Component {
                                 <div className='phone-info-left'>颜色：</div>
                                 <div className='phone-info-right'>
                                     {phoneSource[0].value.map((ele) => {
-                                        return (
-                                            <span >
-                                                {ele.color}、
-                                        </span>
-                                        )
+                                        debugger
+                                        if (color == phoneSource[0].value.length) {
+                                            color = 1
+                                            return (
+                                                <span >
+                                                    {ele.color}
+                                                </span>)
+                                        }
+                                        else {
+                                            color++
+                                            return (
+                                                <span >
+                                                    {ele.color}、
+                                            </span>
+                                            )
+                                        }
 
                                     })}
                                 </div>
@@ -218,15 +235,10 @@ class Index extends Component {
                                 <div className='phone-info-left'>内存：</div>
                                 <div className='phone-info-right'>
                                     {phoneSource[0].value.map((ele) => {
+                                      
                                         return (
-                                            <span>
-                                                {
-                                                    !!ele.size ? ele.size + '、' : null
-                                                }
-
-                                            </span>
+                                            !!ele.size ? <span>{ele.size}</span> : null
                                         )
-
                                     })}
                                 </div>
                             </div>
@@ -250,11 +262,22 @@ class Index extends Component {
                                 <div className='phone-info-left'>颜色：</div>
                                 <div className='phone-info-right'>
                                     {phoneSource[1].value.map((ele) => {
-                                        return (
-                                            <span >
-                                                {ele.color}、
-                                        </span>
-                                        )
+                                     
+                                        if (color == phoneSource[1].value.length) {
+                                            color = 1
+                                            return (
+                                                <span >
+                                                    {ele.color}
+                                                </span>)
+                                        }
+                                        else {
+                                            color++
+                                            return (
+                                                <span >
+                                                    {ele.color}、
+                                            </span>
+                                            )
+                                        }
 
                                     })}
                                 </div>
@@ -265,15 +288,10 @@ class Index extends Component {
                                 <div className='phone-info-left'>内存：</div>
                                 <div className='phone-info-right'>
                                     {phoneSource[1].value.map((ele) => {
+                                       
                                         return (
-                                            <span>
-                                                {
-                                                    !!ele.size ? ele.size + '、' : null
-                                                }
-
-                                            </span>
+                                             !!ele.size ? <span>{ele.size}</span> : null
                                         )
-
                                     })}
                                 </div>
                             </div>
@@ -300,7 +318,13 @@ class Index extends Component {
         })
     }
     componentWillMount = () => {
-
+        const query = this.props.location.search
+        const arr = decodeURIComponent(query.split('?')[1]) 
+        const arrs = arr.split('&') 
+        const backItem = arrs[0].split('=')[1]*1 ||1
+        this.setState({
+                barIndex:backItem||1
+        })
         POST('/demo/getPhone.php', {}).then(app => {
             if (app.code == 0) {
                 this.setState({
@@ -308,13 +332,14 @@ class Index extends Component {
                     phoneSource: !!app.result[0] ? [app.result[0]] : []
                 })
                 if (!!app.result[0])
-                    this.postItem(app.result[0].phone, 1, 'one')
+                    this.postItem(app.result[0].phone, backItem, 'one')
             }
         })
     }
     //饼图点击事件
     pieClick = (name, data, item) => {
         let datas = cloneDeep(data)
+        const {barIndex} = this.state
         datas.sort((a, b) => {
             if (a.value > b.value) return -1
             if (a.value < b.value) return 1
@@ -322,18 +347,18 @@ class Index extends Component {
         })
         console.log('kkkkk', data)
         let type = datas[item].key
-        this.props.dispatch(routerRedux.push("/home/detail?name=" + name + '&type=' + type + '&index=' + item))
+        this.props.dispatch(routerRedux.push("/home/detail?name=" + name + '&type=' + type + '&index=' + item+'&backItem='+barIndex+'&single=1'))
     }
     render() {
         let { phoneSource, addVisible } = this.state
         console.log(phoneSource)
         return (
             <div className='single-body' >
-                <div className='table'><span className='table-title'>手机产品属性情感分析结果</span>
-                    <div className='table-button btn-one' onClick={this.btnOne} style={{ 'background-image': this.state.barIndex == 1 ? 'linear-gradient(-180deg, #00FFDE 0%, #004EFF 100%)' : null }}>满意度</div>
-                    <div className='table-button btn-two' onClick={this.btnTwo} style={{ 'background-image': this.state.barIndex == 2 ? 'linear-gradient(-180deg, #00FFDE 0%, #004EFF 100%)' : null }}>关注度</div>
-                    <div className='table-button btn-three' onClick={this.btnThree} style={{ 'background-image': this.state.barIndex == 3 ? 'linear-gradient(-180deg, #00FFDE 0%, #004EFF 100%)' : null }}>情感方差</div>
-                    <div className='table-button btn-four' onClick={this.btnFour} style={{ 'background-image': this.state.barIndex == 4 ? 'linear-gradient(-180deg, #00FFDE 0%, #004EFF 100%)' : null }}>需改进度</div>
+                <div className='table'><span className='table-title'>⼿机评价指标得分</span>
+                    <div className='table-button btn-one' onClick={this.btnOne} style={{ 'background-image': this.state.barIndex == 1 ? 'linear-gradient(75deg, #00FFDE 0%, #004EFF 100%)' : null }}>满意度</div>
+                    <div className='table-button btn-two' onClick={this.btnTwo} style={{ 'background-image': this.state.barIndex == 2 ? 'linear-gradient(75deg, #00FFDE 0%, #004EFF 100%)' : null }}>关注度</div>
+                    <div className='table-button btn-three' onClick={this.btnThree} style={{ 'background-image': this.state.barIndex == 3 ? 'linear-gradient(75deg, #00FFDE 0%, #004EFF 100%)' : null }}>情感方差</div>
+                    <div className='table-button btn-four' onClick={this.btnFour} style={{ 'background-image': this.state.barIndex == 4 ? 'linear-gradient(75deg, #00FFDE 0%, #004EFF 100%)' : null }}>需改进度</div>
                 </div>
                 {phoneSource.length > 1 ? null : <div className='sort'><img src={!this.state.sortType ? SortDown : SortUp} onClick={this.sort} /></div>}
                 <div className='tables'>
@@ -379,12 +404,12 @@ class Index extends Component {
                                 {!!phoneSource[0] ? phoneSource[0].phone : null}&nbsp;&nbsp;
                                 {
                                     this.state.barIndex == 1 ?
-                                        '满意度最高的产品属性' :
+                                        '满意度最低的产品属性' :
                                         this.state.barIndex == 2 ?
-                                            '关注度最高的产品属性' :
+                                            '关注度最低的产品属性' :
                                             this.state.barIndex == 3 ?
-                                                '情感房差最高的产品属性' :
-                                                '需改进度最高的产品属性'
+                                                '情感房差最低的产品属性' :
+                                                '需改进度最低的产品属性'
                                 }
                             </span>
                             <div className='right-body'>
@@ -421,12 +446,12 @@ class Index extends Component {
                                 {!!phoneSource[1] ? phoneSource[1].phone : null}&nbsp;&nbsp;
                                 {
                                     this.state.barIndex == 1 ?
-                                        '满意度最高的产品属性' :
+                                        '满意度最低的产品属性' :
                                         this.state.barIndex == 2 ?
-                                            '关注度最高的产品属性' :
+                                            '关注度最低的产品属性' :
                                             this.state.barIndex == 3 ?
-                                                '情感房差最高的产品属性' :
-                                                '需改进度最高的产品属性'
+                                                '情感房差最低的产品属性' :
+                                                '需改进度最低的产品属性'
                                 }
                             </span>
                             <div className='right-body'>

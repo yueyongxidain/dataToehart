@@ -90,8 +90,9 @@ class Index extends Component {
                     inside: true,               //---是否朝内
                     interval: 0,
                     rotate: 0,                   //---旋转角度   
-                    margin: 5,                  //---刻度标签与轴线之间的距离
+                    margin: 8,                  //---刻度标签与轴线之间的距离
                     //color:,             //---默认取轴线的颜色
+                    fontSize:14,
                 },
                 splitLine: {                 //---grid 区域中的分隔线
                     show: true,                 //---是否显示，'category'类目轴不显示，此时我的X轴为类目轴，splitLine属性是无意义的

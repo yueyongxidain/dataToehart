@@ -12,25 +12,27 @@
         .tables-Right {
             position: absolute;
             left: 71.6vw;
-            top: 4.5vw;
+            top: 68px;
             width: 31.9vw;
-
+            div{
+                margin: 0.2vw auto;
+            }
             .btn-1 {
                 position: absolute;
                 left: 16vw;
-                top: 0.2vw;
+                top: 0.4vw;
             }
 
             .btn-2 {
                 position: absolute;
                 left: 16vw;
-                top: 8.2vw;
+                top: 8.5vw;
             }
 
             .btn-3 {
                 position: absolute;
                 left: 16vw;
-                top: 16.2vw;
+                top: 16.4vw;
             }
 
             .tables-Right-divider {
@@ -58,7 +60,7 @@
 
             .number {
                 color: #8494A5;
-                margin-top: 1.2vh;
+                margin-top: 1vh;
                 font-size: 1vw;
 
                 .number-number {
@@ -72,22 +74,22 @@
         .tables-divider {
             position: absolute;
             left: 69.8vw;
-            top: 12vh;
-            height: 40vh !important;
+            top: 78px;
+            height: calc(calc(100vh - 6.2vw)/100 * 65 - 100px) !important;
             background: #000000;
         }
     }
     .sort {
         position: absolute;
         top: 2.8vh;
-        left: 64vw;
+        left: 65.5vw;
         z-index: 1;
     }
 
     .table {
         position: absolute;
         top: 2.8vh;
-        left: 4vw;
+        left: 48px !important;
 
         .table-title {
             color: #FFFFFF;
@@ -109,7 +111,9 @@
         border-radius: 2vw;
         z-index: 999;
     }
-
+    .table-button:hover {
+        cursor: pointer !important;
+    }
     .btn-one {
         position: absolute;
         left: 22vw;
@@ -130,14 +134,14 @@
 
     .btn-four {
         position: absolute;
-        left: 46vw;
+        left: 47vw;
         width: 7vw;
     }
 
     .pie {
         .divider-pie {
             position: relative;
-            left: 46vw;
+            left: 47vw;
             top: 2vh;
             // margin: 0 0.1vw;
             height: 25vh !important;
@@ -150,7 +154,7 @@
             height: 30vh;
             display: inline-block;
             position: absolute;
-            left: 2vw;
+            left: 2.5vw;
 
             .left-title {
                 color: #FFFFFF;
@@ -158,7 +162,7 @@
                 display: inline-block;
                 position: absolute;
                 top: 1.5vh;
-                left: 2.8vw;
+                left: 1.2vw;
             }
 
             .left-body {
@@ -189,6 +193,7 @@
                 display: inline-block;
                 position: absolute;
                 top: 1.5vh;
+                left:1.5vw
             }
         }
 

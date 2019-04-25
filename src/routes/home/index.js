@@ -9,6 +9,7 @@ import Mult from '../mult'
 import Single from '../single'
 import Detail from '../detail';
 import './index.less'
+import {Popover} from 'antd'
 class Index extends Component {
     constructor(props) {
         super(props)
@@ -44,6 +45,10 @@ class Index extends Component {
         })
         this.props.dispatch(routerRedux.push("/home/single"))
     }
+    logOut = ()=>{
+        const urlParams = new URL(window.location.href);
+        window.location.replace(urlParams.origin)
+    }
     componentWillMount = () => {
         debugger
         if (this.props.location.pathname == '/home/all') {
@@ -51,14 +56,19 @@ class Index extends Component {
                 index: 1
             })
         }
-        if (this.props.location.pathname == '/home/mult') {
+        else if (this.props.location.pathname == '/home/mult') {
             this.setState({
                 index: 2
             })
         }
-        if (this.props.location.pathname == '/home/single') {
+        else if (this.props.location.pathname == '/home/single') {
             this.setState({
                 index: 3
+            })
+        }
+        else{
+            this.setState({
+                index: 0
             })
         }
     }
@@ -71,7 +81,10 @@ class Index extends Component {
                     </div>
                     <span className='header-title one '>评论数据数量： <span>1,257,482</span></span>
                     <span className='header-title two'>有效评论数量： <span>808,426</span></span>
-                    <img src={Icon} className='header-Icon' />
+                    <Popover content={<a href='javascript:' onClick={this.logOut}>注销</a>}>
+                        <img src={Icon} className='header-Icon' />
+                    </Popover>
+                 
                     <span className='header-Icon-title1'>admin</span>
                     <span className='header-Icon-title2'>管理员</span>
                 </div>

@@ -7,13 +7,19 @@
 
     .tables {
         height: calc(calc(100vh - 6.2vw)/100 * 65);
-        width: 66.2vw;
-
+        width: 70vw !important;
+        .tables-divider {
+            position: absolute !important;
+            left: 69.8vw !important;
+            top: 78px !important;
+            height: calc(calc(100vh - 6.2vw)/100 * 65 - 102px) !important;
+            background: #000000;
+        }
         .tables-Right {
             position: absolute;
-            left: 68vw;
-            top:  4vw !important;
-            width: 28.3vw;
+            left: 71.6vw !important;
+            top: 4vw !important;
+            width: 26.3vw !important;
 
             .add {
                 position: relative;
@@ -67,26 +73,20 @@
             }
         }
 
-        .tables-divider {
-            position: absolute;
-            left: 66vw;
-            top: 12vh;
-            height: 40vh !important;
-            background: #000000;
-        }
+       
     }
 
     .sort {
         position: absolute;
         top: 2.8vh;
-        left: 64vw;
+        left: 65.5vw !important;
         z-index: 1;
     }
 
     .table {
         position: absolute;
         top: 2.8vh;
-        left: 4vw;
+        left: 48px !important;
 
         .table-title {
             color: #FFFFFF;
@@ -109,6 +109,10 @@
         z-index: 999;
     }
 
+    .table-button:hover {
+        cursor: pointer !important;
+    }
+
     .btn-one {
         position: absolute;
         left: 22vw;
@@ -129,14 +133,14 @@
 
     .btn-four {
         position: absolute;
-        left: 46vw;
+        left: 47vw !important;
         width: 7vw;
     }
 
     .pie {
         .divider-pie {
             position: relative;
-            left: 46vw;
+            left: 47vw !important;
             top: 2vh;
             // margin: 0 0.1vw;
             height: 25vh !important;
@@ -149,7 +153,7 @@
             height: 30vh;
             display: inline-block;
             position: absolute;
-            left: 2vw;
+            left: 2.5vw !important;
 
             .left-title {
                 color: #FFFFFF;
@@ -157,7 +161,7 @@
                 display: inline-block;
                 position: absolute;
                 top: 1.5vh;
-                left: 2.8vw;
+                left: 1.2vw !important;
             }
 
             .left-body {
@@ -188,10 +192,12 @@
                 display: inline-block;
                 position: absolute;
                 top: 1.5vh;
+                left: 1.5vw !important;
             }
         }
 
     }
+
     .ant-carousel .slick-slide {
         height: 30vh;
         overflow: hidden;
@@ -211,23 +217,24 @@
 }
 
 .phone-two {
-   
+
     font-size: 0.2vw;
     margin-right: 5vw;
+
     .phone-info {
         .phone-info-left {
             padding-left: 1vw;
             color: #8494A5;
             vertical-align: top;
             display: inline-block;
-            width: 30%;
+            width: 20%;
         }
 
         .phone-info-right {
             color: #FFFFFF;
             text-align: right;
             display: inline-block;
-            width: 70%;
+            width: 80%;
         }
 
         span {
@@ -235,33 +242,36 @@
             margin-right: 0.4vw;
         }
     }
-    .phone-name{
+
+    .phone-name {
         display: inline-block;
-        width:85%;
+        width: 85%;
     }
-    img{
+
+    img {
         display: inline-block;
-        width:1.2vw;
+        width: 1.2vw;
     }
 }
 
 .phone-one {
     margin-right: 5vw;
     font-size: 0.2vw;
+
     .phone-info {
         .phone-info-left {
             padding-left: 1vw;
             color: #8494A5;
             vertical-align: top;
             display: inline-block;
-            width: 30%;
+            width: 20%;
         }
 
         .phone-info-right {
             color: #FFFFFF;
             text-align: right;
             display: inline-block;
-            width: 70%;
+            width: 80%;
         }
 
         span {
@@ -286,52 +296,58 @@
     letter-spacing: 0;
     font-size: 1.4vw;
     padding-left: 1vw;
-    span{
+
+    span {
         display: inline-block !important;
         font-size: 0.8vw;
-        color:#8494A5;
+        color: #8494A5;
     }
 }
 
 .phone-name {
-    .ant-select-selection{
+    .ant-select-selection {
         background: inherit;
         border: none;
     }
-    .ant-select{
-        width:12vw !important;
+
+    .ant-select {
+        width: 10vw !important;
     }
-    .ant-select-selection-selected-value{
+
+    .ant-select-selection-selected-value {
         opacity: 0.8;
         font-family: SourceHanSansSC-Normal;
         font-size: 1.4vw;
         color: #FFFFFF;
         margin-bottom: 0vw;
         letter-spacing: 0;
-        padding-right:1vw !important;
+        padding-right: 1vw !important;
     }
-    .ant-select-selection__rendered{
-        width:100%;
-        padding-right:1vw !important;
+
+    .ant-select-selection__rendered {
+        width: 100%;
+        padding-right: 1vw !important;
         margin-right: 1vw;
         margin-left: 1vw;
         line-height: 1.6vw;
     }
-    .ant-select-selection--single{
+
+    .ant-select-selection--single {
         height: 1.6vw;
     }
-    .ant-select-arrow{
+
+    .ant-select-arrow {
         font-size: 0.8vw;
         color: #FFFFFF;
-        right:0.5vw;
-        line-height:0.8vw;
+        right: 0.5vw;
+        line-height: 0.8vw;
     }
 }
 
 .phone-li-divider {
-    color:rgba(255,255,255,0.14);
-    background-color: rgba(255,255,255,0.14);
+    color: rgba(255, 255, 255, 0.14);
+    background-color: rgba(255, 255, 255, 0.14);
     width: 95%;
     min-width: 95%;
-    margin: 0.5vw auto;
+    margin: 1vw auto;
 }
