@@ -37,10 +37,10 @@ class Index extends Component {
             grid: {
                 show: true,                 //---是否显示直角坐标系网格
                 top: 80,
-                left: 40,
+                left: 60,
                 right: 50,                     //---相对位置，top\bottom\left\right  
                 bottom: 25,
-                containLabel: true,         //---grid 区域是否包含坐标轴的刻度标签
+                containLabel: false,         //---grid 区域是否包含坐标轴的刻度标签
                 tooltip: {                   //---鼠标焦点放在图形上，产生的提示框
                     show: true,
                     trigger: 'item',         //---触发类型
