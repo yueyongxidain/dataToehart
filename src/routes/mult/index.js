@@ -270,12 +270,12 @@ class Index extends Component {
                             <span className='left-title'>
                                 {
                                     this.state.barIndex == 1 ?
-                                        '满意度最高的产品属性-高端' :
+                                        '高端手机满意度最高的产品属性' :
                                         this.state.barIndex == 2 ?
-                                            '关注度最高的产品属性-高端' :
+                                            '高端手机关注度最高的产品属性' :
                                             this.state.barIndex == 3 ?
-                                                '情感房差最高的产品属性-高端' :
-                                                '需改进度最高的产品属性-高端'
+                                                '高端手机情感房差最高的产品属性' :
+                                                '高端手机需改进度最高的产品属性'
                                 }
                             </span>
                             <div className='left-body'>
@@ -289,12 +289,12 @@ class Index extends Component {
                             <span className='right-title'>
                                 {
                                     this.state.barIndex == 1 ?
-                                        '满意度最低的产品属性-高端' :
+                                        '高端手机满意度最低的产品属性' :
                                         this.state.barIndex == 2 ?
-                                            '关注度最低的产品属性-高端' :
+                                            '高端手机关注度最低的产品属性' :
                                             this.state.barIndex == 3 ?
-                                                '情感房差最低的产品属性-高端' :
-                                                '需改进度最低的产品属性-高端'
+                                                '高端手机情感房差最低的产品属性' :
+                                                '高端手机需改进度最低的产品属性'
                                 }
                             </span>
                             <div className='right-body'>
@@ -310,12 +310,12 @@ class Index extends Component {
                             <span className='left-title'>
                                 {
                                     this.state.barIndex == 1 ?
-                                        '满意度最高的产品属性-中端' :
+                                        '中端手机满意度最高的产品属性' :
                                         this.state.barIndex == 2 ?
-                                            '关注度最高的产品属性-中端' :
+                                            '中端手机关注度最高的产品属性' :
                                             this.state.barIndex == 3 ?
-                                                '情感房差最高的产品属性-中端' :
-                                                '需改进度最高的产品属性-中端'
+                                                '中端手机情感房差最高的产品属性' :
+                                                '中端手机需改进度最高的产品属性'
                                 }
                             </span>
                             <div className='left-body'>
@@ -329,12 +329,12 @@ class Index extends Component {
                             <span className='right-title'>
                                 {
                                     this.state.barIndex == 1 ?
-                                        '满意度最低的产品属性-中端' :
+                                        '中端手机满意度最低的产品属性' :
                                         this.state.barIndex == 2 ?
-                                            '关注度最低的产品属性-中端' :
+                                            '中端手机关注度最低的产品属性' :
                                             this.state.barIndex == 3 ?
-                                                '情感房差最低的产品属性-中端' :
-                                                '需改进度最低的产品属性-中端'
+                                                '中端手机情感房差最低的产品属性' :
+                                                '中端手机需改进度最低的产品属性'
                                 }
                             </span>
                             <div className='right-body'>
@@ -351,12 +351,12 @@ class Index extends Component {
                             <span className='left-title'>
                                 {
                                     this.state.barIndex == 1 ?
-                                        '满意度最高的产品属性-低端' :
+                                        '低端手机满意度最高的产品属性' :
                                         this.state.barIndex == 2 ?
-                                            '关注度最高的产品属性-低端' :
+                                            '低端手机关注度最高的产品属性' :
                                             this.state.barIndex == 3 ?
-                                                '情感房差最高的产品属性-低端' :
-                                                '需改进度最高的产品属性-低端'
+                                                '低端手机情感房差最高的产品属性' :
+                                                '低端手机需改进度最高的产品属性'
                                 }
                             </span>
                             <div className='left-body'>
@@ -370,12 +370,12 @@ class Index extends Component {
                             <span className='right-title'>
                                 {
                                     this.state.barIndex == 1 ?
-                                        '满意度最低的产品属性-低端' :
+                                        '低端手机满意度最低的产品属性' :
                                         this.state.barIndex == 2 ?
-                                            '关注度最低的产品属性-低端' :
+                                            '低端手机关注度最低的产品属性' :
                                             this.state.barIndex == 3 ?
-                                                '情感房差最低的产品属性-低端' :
-                                                '需改进度最低的产品属性-低端'
+                                                '低端手机情感房差最低的产品属性' :
+                                                '低端手机需改进度最低的产品属性'
                                 }
                             </span>
                             <div className='right-body'>

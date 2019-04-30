@@ -14,6 +14,7 @@ class Index extends Component {
     componentWillReceiveProps = (nextProps) => {
         let xdata = [];
         let ydata = [];
+    
         nextProps.data.map((ele) => {
             xdata.push(ele.key)
             ydata.push(ele.value)
@@ -91,7 +92,6 @@ class Index extends Component {
                     interval: 0,
                     rotate: 0,                   //---旋转角度   
                     margin: 8,                  //---刻度标签与轴线之间的距离
-                    //color:,             //---默认取轴线的颜色
                     fontSize:14,
                 },
                 splitLine: {                 //---grid 区域中的分隔线
@@ -158,6 +158,10 @@ class Index extends Component {
                     rotate: 0,                   //---旋转角度   
                     margin: 8,                  //---刻度标签与轴线之间的距离
                     //color:'red',              //---默认取轴线的颜色
+                    color:function (value, index) {
+                        console.log("opopopop",value)
+                        return value >= 0 ? '#fff' : '#1C2128';
+                    },
                 },
                 splitLine: {                     //---grid 区域中的分隔线
                     show: false,                  //---是否显示，'category'类目轴不显示，此时我的y轴为类目轴，splitLine属性是有意义的

@@ -21,7 +21,7 @@
     .table {
         position: absolute;
         top: 2.8vh;
-        left: 59px;
+        left: 48px;
 
         .table-title {
             color: #FFFFFF;
@@ -36,6 +36,7 @@
         font-family: SourceHanSansSC-Bold;
         font-size: 1vw;
         color: #FFFFFF;
+        width:6.8vw !important;
         text-align: center;
         padding-left: 1.2vw;
         padding-right: 1.2vw;
@@ -75,11 +76,9 @@
     .pie {
         .divider-pie {
             position: relative;
-            left: 47vw;
+            left: 46.25vw !important;
             top: 2vh;
-            // margin: 0 0.1vw;
             height: 25vh !important;
-            // min-height: 90vw !important;
             background: #000000;
         }
 
@@ -88,20 +87,20 @@
             height: 30vh;
             display: inline-block;
             position: absolute;
-            left: 2.5vw;
-
+            left: 0;
             .left-title {
                 color: #FFFFFF;
                 font-size: 1.2vw;
                 display: inline-block;
                 position: absolute;
                 top: 1.5vh;
-                left: 1.2vw;
+                left: 48px !important;
             }
 
             .left-body {
                 position: absolute;
                 top: 3vh;
+                left: calc(48px - 1vw) !important;
                 width: 45vw;
                 height: 30vh;
             }
@@ -112,7 +111,7 @@
             height: 30vh;
             display: inline-block;
             position: absolute;
-            left: 50vw;
+            left: 49.3vw;
 
             .right-body {
                 position: absolute;
@@ -127,7 +126,7 @@
                 display: inline-block;
                 position: absolute;
                 top: 1.5vh;
-                left:1.5vw
+                left:1vw
             }
         }
 

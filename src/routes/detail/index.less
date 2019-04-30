@@ -1,4 +1,4 @@
-.single-body {
+.detail-body {
     width: 94.5vw;
     height: calc(100vh - 6.2vw);
     position: absolute;
@@ -6,15 +6,19 @@
     left: 5.5vw;
 
     .single-back {
-        border-radius: 62px;
-        border: 0.1vw solid #00FFDE;
-        width: 4vw;
-        font-size: 0.8vw;
+        font-family: SourceHanSansSC-Bold;
+        font-size: 1vw;
+        color: #FFFFFF;
+        width:6vw !important;
         text-align: center;
+        padding-left: 1.2vw;
+        padding-right: 1.2vw;
+        border: 0.1vw solid #00FFDE;
+        border-radius: 2vw;
+        z-index: 999;
         position: absolute;
         right: 5vw;
         top: 1.5vw;
-        color:#FFFFFF;
         z-index: 999;
     }
     .single-back:hover{
@@ -23,18 +27,18 @@
 
     .tables {
         height: calc(calc(100vh - 6.2vw)/100 * 65);
-        width: 66.2vw;
+        width:70vw;
 
         .tables-Right {
             position: absolute;
-            left: 68vw;
-            top: 6vw;
-            width: 28.3vw;
+            left: 71.6vw;
+            top: 68px;
+            width: 31.9vw;
             text-align: left;
 
             .table-Right-desc {
                 display: block;
-                width: 6.5vw;
+                width: 5.6vw;
                 text-align: center;
                 border: 0.1vw solid #FFFFFF;
                 border-radius: 2vw;
@@ -57,7 +61,7 @@
     .table {
         position: absolute;
         top: 2.8vh;
-        left: 4vw;
+        left: 48px !important;
 
         .table-title {
             color: #FFFFFF;
@@ -107,11 +111,9 @@
     .pie {
         .divider-pie {
             position: relative;
-            left: 46vw;
+            left: 46.5vw;
             top: 2vh;
-            // margin: 0 0.1vw;
             height: 25vh !important;
-            // min-height: 90vw !important;
             background: #000000;
         }
 
@@ -120,7 +122,7 @@
             height: 30vh;
             display: inline-block;
             position: absolute;
-            left: 2vw;
+            left: 0;
 
             .left-title {
                 color: #FFFFFF;
@@ -128,12 +130,13 @@
                 display: inline-block;
                 position: absolute;
                 top: 1.5vh;
-                left: 2.8vw;
+                left: 48px !important;
             }
 
             .left-body {
                 position: absolute;
                 top: 3vh;
+                left: calc(48px - 1vw) !important;
                 width: 45vw;
                 height: 30vh;
             }
@@ -144,7 +147,8 @@
             height: 30vh;
             display: inline-block;
             position: absolute;
-            left: 50vw;
+            left: 49.3vw;
+
 
             .right-body {
                 position: absolute;
@@ -159,6 +163,7 @@
                 display: inline-block;
                 position: absolute;
                 top: 1.5vh;
+                left:1.1vw
             }
         }
 

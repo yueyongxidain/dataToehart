@@ -16,6 +16,7 @@ class Index extends Component {
         let one = [];
         let two = [];
         debugger
+        console.log("one:",nextProps.one)
         nextProps.one.map((ele) => {
             xdata.push(ele.key)
             one.push(ele.value)
@@ -163,6 +164,10 @@ class Index extends Component {
                     rotate: 0,                   //---旋转角度   
                     margin: 8,                  //---刻度标签与轴线之间的距离
                     //color:'red',              //---默认取轴线的颜色
+                    color:function (value, index) {
+                        console.log("opopopop",value)
+                        return value >= 0 ? '#fff' : '#1C2128';
+                    },
                 },
                 splitLine: {                     //---grid 区域中的分隔线
                     show: false,                  //---是否显示，'category'类目轴不显示，此时我的y轴为类目轴，splitLine属性是有意义的
@@ -179,7 +184,7 @@ class Index extends Component {
             //------------ 内容数据  -----------------
             series: [
                 {
-                    name: '',             //---系列名称
+                    name: this.props.oneName,             //---系列名称
                     type: 'bar',                //---类型
                     legendHoverLink: true,       //---是否启用图例 hover 时的联动高亮
                     label: {                     //---图形上的文本标签
@@ -208,7 +213,7 @@ class Index extends Component {
                     data: one
                 },
                 {
-                    name: '',             //---系列名称
+                    name: this.props.twoName,             //---系列名称
                     type: 'bar',                //---类型
                     legendHoverLink: true,       //---是否启用图例 hover 时的联动高亮
 

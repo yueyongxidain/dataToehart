@@ -23,7 +23,8 @@ class Index extends Component {
             two: [],
             sortType: 0,
             phone: [],
-            phoneSource: []
+            phoneSource: [],
+            demoData:[],
         }
     }
     btnOne = (e) => {
@@ -31,6 +32,13 @@ class Index extends Component {
         if (this.state.barIndex == 1) return
         for (var index in this.state.phoneSource) {
             this.postItem(this.state.phoneSource[index].phone, 1, index == 0 ? 'one' : 'two')
+            POST('/demo/getCsv.php', { name: this.state.phoneSource[0].type, item: 1 }).then(app => {
+                if (app.code == 0) {
+                    this.setState({
+                        demoData: app.result
+                    })
+                }
+            })
         }
         this.setState({
             barIndex: 1
@@ -41,6 +49,13 @@ class Index extends Component {
         if (this.state.barIndex == 2) return
         for (var index in this.state.phoneSource) {
             this.postItem(this.state.phoneSource[index].phone, 2, index == 0 ? 'one' : 'two')
+            POST('/demo/getCsv.php', { name: this.state.phoneSource[0].type, item: 2 }).then(app => {
+                if (app.code == 0) {
+                    this.setState({
+                        demoData: app.result
+                    })
+                }
+            })
         }
         this.setState({
             barIndex: 2
@@ -51,6 +66,13 @@ class Index extends Component {
         if (this.state.barIndex == 3) return
         for (var index in this.state.phoneSource) {
             this.postItem(this.state.phoneSource[index].phone, 3, index == 0 ? 'one' : 'two')
+            POST('/demo/getCsv.php', { name: this.state.phoneSource[0].type, item: 3 }).then(app => {
+                if (app.code == 0) {
+                    this.setState({
+                        demoData: app.result
+                    })
+                }
+            })
         }
         this.setState({
             barIndex: 3
@@ -61,6 +83,13 @@ class Index extends Component {
         if (this.state.barIndex == 4) return
         for (var index in this.state.phoneSource) {
             this.postItem(this.state.phoneSource[index].phone, 4, index == 0 ? 'one' : 'two')
+            POST('/demo/getCsv.php', { name: this.state.phoneSource[0].type, item: 4 }).then(app => {
+                if (app.code == 0) {
+                    this.setState({
+                        demoData: app.result
+                    })
+                }
+            })
         }
         this.setState({
             barIndex: 4
@@ -69,27 +98,49 @@ class Index extends Component {
     //排序点击
     sort = (e) => {
         e.stopPropagation()
-        let { one, sortType } = this.state
+        let { one, sortType,demoData } = this.state
         one.sort((a, b) => {
             if (a.value > b.value) return sortType ? -1 : 1
             if (a.value < b.value) return sortType ? 1 : -1
             else return 0
         })
+        let resDemo = []
+        one.map((ele) => {
+            for (let i in demoData) {
+                if (demoData[i].key == ele.key) {
+                    resDemo.push(demoData[i])
+                }
+            }
+        })
         this.setState({
             one: one,
-            sortType: sortType ? 0 : 1
+            sortType: sortType ? 0 : 1,
+            demoData:resDemo
         })
     }
     postItem = (name, item, stateName) => {
         POST('/demo/getCsv.php', { name: name, item: item }).then(app => {
             if (app.code == 0) {
-                stateName == 'one' ?
+                if (stateName == 'one') {
                     this.setState({
                         one: app.result
-                    }) :
-                    this.setState({
-                        two: app.result
                     })
+                }
+                else {
+                    let two = []
+                    const { one } = this.state
+                    debugger
+                    one.map((ele) => {
+                        for (let i in app.result) {
+                            if (app.result[i].key == ele.key) {
+                                two.push(app.result[i])
+                            }
+                        }
+                    })
+                    this.setState({
+                        two: two
+                    })
+                }
             }
         })
     }
@@ -159,8 +210,8 @@ class Index extends Component {
                                             color++
                                             return (
                                                 <span >
-                                                    {ele.color}、
-                                            </span>
+                                                    {ele.color}
+                                                </span>
                                             )
                                         }
 
@@ -173,7 +224,7 @@ class Index extends Component {
                                 <div className='phone-info-left'>内存：</div>
                                 <div className='phone-info-right'>
                                     {phoneSource[0].value.map((ele) => {
-                                      
+
                                         return (
                                             !!ele.size ? <span>{ele.size}</span> : null
                                         )
@@ -221,8 +272,8 @@ class Index extends Component {
                                             color++
                                             return (
                                                 <span >
-                                                    {ele.color}、
-                                            </span>
+                                                    {ele.color}
+                                                </span>
                                             )
                                         }
 
@@ -235,7 +286,7 @@ class Index extends Component {
                                 <div className='phone-info-left'>内存：</div>
                                 <div className='phone-info-right'>
                                     {phoneSource[0].value.map((ele) => {
-                                      
+
                                         return (
                                             !!ele.size ? <span>{ele.size}</span> : null
                                         )
@@ -262,7 +313,7 @@ class Index extends Component {
                                 <div className='phone-info-left'>颜色：</div>
                                 <div className='phone-info-right'>
                                     {phoneSource[1].value.map((ele) => {
-                                     
+
                                         if (color == phoneSource[1].value.length) {
                                             color = 1
                                             return (
@@ -274,8 +325,8 @@ class Index extends Component {
                                             color++
                                             return (
                                                 <span >
-                                                    {ele.color}、
-                                            </span>
+                                                    {ele.color}
+                                                </span>
                                             )
                                         }
 
@@ -288,9 +339,9 @@ class Index extends Component {
                                 <div className='phone-info-left'>内存：</div>
                                 <div className='phone-info-right'>
                                     {phoneSource[1].value.map((ele) => {
-                                       
+
                                         return (
-                                             !!ele.size ? <span>{ele.size}</span> : null
+                                            !!ele.size ? <span>{ele.size}</span> : null
                                         )
                                     })}
                                 </div>
@@ -312,46 +363,86 @@ class Index extends Component {
         })
     }
     addPhone = (phoneSource) => {
-        this.postItem(phoneSource[0].phone, 1, 'two')
+        const { barIndex } = this.state
+        this.postItem(phoneSource[0].phone, barIndex, 'two')
         this.setState({
             phoneSource: [...this.state.phoneSource, ...phoneSource]
         })
     }
     componentWillMount = () => {
         const query = this.props.location.search
-        const arr = decodeURIComponent(query.split('?')[1]) 
-        const arrs = arr.split('&') 
-        const backItem = arrs[0].split('=')[1]*1 ||1
+        const arr = decodeURIComponent(query.split('?')[1])
+        const arrs = arr.split('&')
+        const backItem = arrs[0].split('=')[1] * 1 || 1
+        let phoneSource = !!arrs[1] ? JSON.parse(arrs[1].split('=')[1]) : []
+        let one = !!arrs[2] ? JSON.parse(arrs[2].split('=')[1]) : []
+        let two = !!arrs[3] ? JSON.parse(arrs[3].split('=')[1]) : []
+        debugger
         this.setState({
-                barIndex:backItem||1
+            barIndex: backItem || 1,
+            phoneSource,
+            one,
+            two,
         })
-        POST('/demo/getPhone.php', {}).then(app => {
-            if (app.code == 0) {
-                this.setState({
-                    phone: app.result,
-                    phoneSource: !!app.result[0] ? [app.result[0]] : []
-                })
-                if (!!app.result[0])
-                    this.postItem(app.result[0].phone, backItem, 'one')
-            }
-        })
+        if (phoneSource.length <= 0) {
+            POST('/demo/getPhone.php', {}).then(app => {
+                if (app.code == 0) {
+                    this.setState({
+                        phone: app.result,
+                        phoneSource: !!app.result[0] ? [app.result[0]] : []
+                    })
+                    POST('/demo/getCsv.php', { name: app.result[0].type, item: backItem || 1 }).then(app => {
+                        if (app.code == 0) {
+                            this.setState({
+                                demoData: app.result
+                            })
+                        }
+                    })
+                    if (!!app.result[0])
+                        this.postItem(app.result[0].phone, backItem, 'one')
+                }
+            })
+        }
+        else if (phoneSource.length == 1) {
+            POST('/demo/getPhone.php', {}).then(app => {
+                if (app.code == 0) {
+                    this.setState({
+                        phone: app.result,
+                    })
+                }
+            })
+            POST('/demo/getCsv.php', { name: phoneSource[0].type, item: arrs[0].split('=')[1] * 1  || this.state.barIndex }).then(app => {
+                if (app.code == 0) {
+                    this.setState({
+                        demoData: app.result
+                    })
+                }
+            })
+        }
+        else {
+            POST('/demo/getPhone.php', {}).then(app => {
+                if (app.code == 0) {
+                    this.setState({
+                        phone: app.result,
+                    })
+                }
+            })
+        }
     }
     //饼图点击事件
     pieClick = (name, data, item) => {
         let datas = cloneDeep(data)
-        const {barIndex} = this.state
+        const { barIndex, phoneSource, one, two } = this.state
         datas.sort((a, b) => {
             if (a.value > b.value) return -1
             if (a.value < b.value) return 1
             else return 0
         })
-        console.log('kkkkk', data)
         let type = datas[item].key
-        this.props.dispatch(routerRedux.push("/home/detail?name=" + name + '&type=' + type + '&index=' + item+'&backItem='+barIndex+'&single=1'))
+        this.props.dispatch(routerRedux.push("/home/detail?name=" + name + '&type=' + type + '&index=' + item + '&backItem=' + barIndex + '&single=1' + '&phoneSource=' + encodeURI(JSON.stringify(phoneSource)) + '&one=' + encodeURI(JSON.stringify(one)) + '&two=' + encodeURI(JSON.stringify(two))))
     }
     render() {
         let { phoneSource, addVisible } = this.state
-        console.log(phoneSource)
         return (
             <div className='single-body' >
                 <div className='table'><span className='table-title'>⼿机评价指标得分</span>
@@ -362,7 +453,7 @@ class Index extends Component {
                 </div>
                 {phoneSource.length > 1 ? null : <div className='sort'><img src={!this.state.sortType ? SortDown : SortUp} onClick={this.sort} /></div>}
                 <div className='tables'>
-                    <Bar one={this.state.one} two={phoneSource.length == 2 ? this.state.two : []} />
+                    <Bar one={this.state.one} two={phoneSource.length == 2 ? this.state.two : this.state.demoData} oneName={!!phoneSource[0]?phoneSource[0].phone:''} twoName={phoneSource.length == 2 ?phoneSource[1].phone :!!phoneSource[0]?phoneSource[0].type:''} />
                     <Divider type='vertical' className='tables-divider' />
                     <div className='tables-Right'>
                         <div>
@@ -381,7 +472,7 @@ class Index extends Component {
                     <div className='pie'>
                         <div className='left'>
                             <span className='left-title'>
-                                {!!phoneSource[0] ? phoneSource[0].phone : null}&nbsp;&nbsp;
+                                {!!phoneSource[0] ? phoneSource[0].phone : null}&nbsp;
                                 {
                                     this.state.barIndex == 1 ?
                                         '满意度最高的产品属性' :
@@ -401,7 +492,7 @@ class Index extends Component {
                         <Divider type='vertical' className='divider-pie' />
                         <div className='right'>
                             <span className='right-title'>
-                                {!!phoneSource[0] ? phoneSource[0].phone : null}&nbsp;&nbsp;
+                                {!!phoneSource[0] ? phoneSource[0].phone : null}&nbsp;
                                 {
                                     this.state.barIndex == 1 ?
                                         '满意度最低的产品属性' :
@@ -423,7 +514,7 @@ class Index extends Component {
                     {phoneSource.length == 2 ? <div className='pie'>
                         <div className='left'>
                             <span className='left-title'>
-                                {!!phoneSource[1] ? phoneSource[1].phone : null}&nbsp;&nbsp;
+                                {!!phoneSource[1] ? phoneSource[1].phone : null}&nbsp;
                                 {
                                     this.state.barIndex == 1 ?
                                         '满意度最高的产品属性' :
@@ -443,7 +534,7 @@ class Index extends Component {
                         <Divider type='vertical' className='divider-pie' />
                         <div className='right'>
                             <span className='right-title'>
-                                {!!phoneSource[1] ? phoneSource[1].phone : null}&nbsp;&nbsp;
+                                {!!phoneSource[1] ? phoneSource[1].phone : null}&nbsp;
                                 {
                                     this.state.barIndex == 1 ?
                                         '满意度最低的产品属性' :
