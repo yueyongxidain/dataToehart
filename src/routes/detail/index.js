@@ -105,7 +105,8 @@ class Index extends Component {
         let fileType = sortData[index].key || ''
         const { fileName } = this.state
         this.setState({
-            index: index
+            index: index,
+            fileType
         })
         POST('/demo/getDetail.php', { name: fileName + '-' + fileType }).then(app => {
             if (app.code == 0) {

@@ -12,7 +12,7 @@ class Index extends Component {
     }
     componentWillReceiveProps = (nextProps) => {
         let xdata = [];
-        let yAxisData = []
+        let yAxisData = Array(9)
         let y = 0;
 
         let length = nextProps.data.length || 0;
@@ -33,32 +33,76 @@ class Index extends Component {
         let k = 0;
         for (let i in temp) {
             if (i == 0) {
-                yAxisData[parseInt(length / 2)] = temp[i]
+                yAxisData[4] = temp[i]
             }
             else {
-                if (!!yAxisData[parseInt(length / 2) + k] && !!yAxisData[parseInt(length / 2) - k]) {
+                if (!!yAxisData[4 + k] && !!yAxisData[4 - k]) {
                     k++
                 }
-                yAxisData[parseInt(length / 2) + k * Math.pow(-1, i)] = temp[i]
+                yAxisData[4 + k * Math.pow(-1, i)] = temp[i]
             }
         }
         for (let i in yAxisData) {
-            if (i == parseInt(length / 2)) {
-                yAxisData[i].number = yAxisData[i].value
-                yAxisData[i].value = 12.5
+            if (i == 4) {
+                if (!!yAxisData[i].value) {
+                    yAxisData[i].number = yAxisData[i].value
+                    yAxisData[i].value = 12.5
+                }
+
             }
             else {
-                yAxisData[i].number = yAxisData[i].value
-                yAxisData[i].value = 12 + 6.4 * Math.pow(-1, i)
+                if (!!yAxisData[i].value) {
+                    yAxisData[i].number = yAxisData[i].value
+                    yAxisData[i].value = 12 + 5.5 * Math.pow(-1, i)
+                }
             }
         }
+        let res = Array(9)
+        for (let i = 0; i < 9; i++) {
+            if (!!yAxisData[i]&&!!yAxisData[i].value && !!yAxisData[i].number && !!yAxisData[i].key) {
+                if (i == 0) {
+                    res.push([2.5, 7.5, yAxisData[i].number, yAxisData[i].key])
+                }
+                else if (i == 1) {
+                    res.push([2.8, 16.5, yAxisData[i].number, yAxisData[i].key])
+                }
+                else if (i== 2) {
+                    res.push([3.8, 18.5, yAxisData[i].number, yAxisData[i].key])
+                }
+                else if (i == 3) {
+                    res.push([3.6, 7.5, yAxisData[i].number, yAxisData[i].key])
+                }
+                else if (i == 4) {
+                    res.push([5, 12, yAxisData[i].number, yAxisData[i].key])
+                }
+                else if (i == 5) {
+                    res.push([6.6, 15.5, yAxisData[i].number, yAxisData[i].key])
+                }
+                else if (i == 6) {
+                    res.push([6.2, 5.5, yAxisData[i].number, yAxisData[i].key])
+                }
+                else if (i == 7) {
+                    res.push([7.2, 8.5, yAxisData[i].number, yAxisData[i].key])
+                }
+                else if (i == 8) {
+                    res.push([7.6, 19.5, yAxisData[i].number, yAxisData[i].key])
+                }
+                else {
+                    res.push([k, yAxisData[i].value, yAxisData[i].number, yAxisData[i].key])
+                }
+            }
+            else {
+                res.push([])
+            }
+        }
+        console.log('res', res)
         let option = {
             //-------------  grid区域  ----------------
             grid: {
                 show: false,                 //---是否显示直角坐标系网格
                 top: 80,
-                left: 190,
-                right: 190,
+                left: 0,
+                right: 100,
                 bottom: 25,                 //---相对位置，top\bottom\left\right  
                 containLabel: false,         //---grid 区域是否包含坐标轴的刻度标签
                 tooltip: {                   //---鼠标焦点放在图形上，产生的提示框
@@ -69,34 +113,42 @@ class Index extends Component {
                     },
                 }
             },
+            large: true,
             xAxis: {
                 show: false,
+                splitNumber: 9,
+                min: 0,
+                max: 9,
                 splitLine: {
                     lineStyle: {
                         type: 'dashed'
                     }
                 },
-                data: xdata,//内容
+                scale: true,
             },
             yAxis: {
                 show: false,
-                type: 'value',
                 max: 12 * 2,
             },
             series: [{
                 name: "item",
-                data: yAxisData,
+                data: res,
                 type: 'scatter',
                 symbolSize: function (ydata, params) {
+                    console.log('data:0', ydata)
                     let indexSize = temp.findIndex((ele) => {
-                        return ele.number == params.data.number
+                        if (!!params.data)
+                            return ele.number == params.data[2]
+                        else {
+                            return -1
+                        }
                     })
                     console.log('index', indexSize)
                     if (indexSize == 0) {
-                        return 170
+                        return 200
                     }
                     if (indexSize < 3 && indexSize > 0) {
-                        return 140
+                        return 150
                     }
                     if (indexSize < 5 && indexSize >= 3) {
                         return 130
@@ -109,7 +161,8 @@ class Index extends Component {
                 label: {
                     show: true,
                     formatter: (params) => {
-                        return `${params.data.key}\n${params.data.number}`
+                        console.log('papa:', params.data)
+                        return `${params.data[3]}\n${params.data[2]}`
                     },
                     fontStyle: 'normal',
                     fontSize: 16,
@@ -118,11 +171,14 @@ class Index extends Component {
                 },
                 itemStyle: {
                     normal: {
-                        shadowBlur: 10,
-                        shadowOffsetY: 5,
                         color: function (params) {
                             let indexSize = temp.findIndex((ele) => {
-                                return ele.number == params.data.number
+                                if (!!params.data) {
+                                    return ele.number == params.data[2]
+                                }
+                                else {
+                                    return -1
+                                }
                             })
                             if (indexSize == 0) {
                                 return '#005FFC'
@@ -151,7 +207,7 @@ class Index extends Component {
         myChart.setOption(option);
         myChart.on('click', function (params) {
             debugger
-            nextProps.click(params.data.key)
+            nextProps.click(params.data[3])
             for (let i = 0; i < length; i++) {
                 myChart.dispatchAction({ type: 'downplay', seriesIndex: 0, dataIndex: i });//设置默认选中高亮部分
             }
@@ -160,7 +216,7 @@ class Index extends Component {
         myChart.dispatchAction({
             type: 'highlight',
             seriesIndex: 0,
-            dataIndex: parseInt(length / 2)
+            dataIndex: 4
         });
 
     }
