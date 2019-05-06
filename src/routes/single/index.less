@@ -19,9 +19,9 @@
         .tables-Right {
             position: absolute;
             left: 71.6vw !important;
-            top: 4vw !important;
-            width: 26.3vw !important;
-
+            top: 80px !important;
+            width: 21.3vw !important;
+            padding: 0 !important;
             .add {
                 position: relative;
                 left: -2vw;
@@ -142,10 +142,10 @@
     .pie {
         .divider-pie {
             position: relative;
-            left: 46.2vw !important;
+            left: calc(45vw + 14px) !important;
             top: 2vh;
             // margin: 0 0.1vw;
-            height: 25vh !important;
+            height: 27.6vh !important;
             // min-height: 90vw !important;
             background: #000000;
         }
@@ -215,18 +215,20 @@
 .phone-divider {
     background-color: #000000 !important;
     color: #000000 !important;
-    width: 80%;
-    min-width: 80%;
+    width: 100%;
+    min-width: 100%;
+    margin: 1.2vw 0 1.2vw 0;
 }
 
 .phone-two {
 
     font-size: 0.2vw;
-    margin-right: 5vw;
+    margin-right: 0vw;
 
     .phone-info {
+        text-align: left;
         .phone-info-left {
-            padding-left: 1vw;
+            padding-left: 0vw;
             color: #8494A5;
             vertical-align: top;
             display: inline-block;
@@ -242,7 +244,8 @@
 
         span {
             display: inline-block !important;
-            margin-right: 0.4vw;
+            margin-left: 0.4vw;
+            margin-right: 0.1vw;
         }
     }
 
@@ -253,17 +256,19 @@
 
     img {
         display: inline-block;
+        position: absolute;
+        right:0.5vw;
         width: 1.2vw;
     }
 }
 
 .phone-one {
-    margin-right: 5vw;
+    margin-right: 0vw;
     font-size: 0.2vw;
 
     .phone-info {
         .phone-info-left {
-            padding-left: 1vw;
+            padding-left: 0vw;
             color: #8494A5;
             vertical-align: top;
             display: inline-block;
@@ -279,7 +284,8 @@
 
         span {
             display: inline-block !important;
-            margin-right: 0.4vw;
+            margin-left: 0.4vw;
+            margin-right: 0.1vw;
         }
     }
 }
@@ -298,7 +304,7 @@
     color: #FFFFFF;
     letter-spacing: 0;
     font-size: 1.4vw;
-    padding-left: 1vw;
+    padding-left: 0vw;
 
     span {
         display: inline-block !important;
@@ -331,7 +337,7 @@
         width: 100%;
         padding-right: 1vw !important;
         margin-right: 1vw;
-        margin-left: 1vw;
+        margin-left: 0vw;
         line-height: 1.6vw;
     }
 
@@ -342,7 +348,7 @@
     .ant-select-arrow {
         font-size: 0.8vw;
         color: #FFFFFF;
-        right: 0.3vw;
+        right: 0.8vw;
         line-height: 0.8vw;
     }
 }
@@ -350,7 +356,8 @@
 .phone-li-divider {
     color: rgba(255, 255, 255, 0.14);
     background-color: rgba(255, 255, 255, 0.14);
-    width: 95%;
-    min-width: 95%;
+    width: 20.8vw;
+    min-width: 20.8vw !important;
     margin: 1vw auto;
+    margin-left: 0;
 }

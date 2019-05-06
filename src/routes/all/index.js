@@ -103,7 +103,7 @@ class Index extends Component {
                                     this.state.barIndex == 2 ?
                                         '关注度最高的产品属性' :
                                         this.state.barIndex == 3 ?
-                                            '情感房差最高的产品属性' :
+                                            '情感方差最高的产品属性' :
                                             '需改进度最高的产品属性'
                             }
                         </span>
@@ -122,7 +122,7 @@ class Index extends Component {
                                     this.state.barIndex == 2 ?
                                         '关注度最低的产品属性' :
                                         this.state.barIndex == 3 ?
-                                            '情感房差最低的产品属性' :
+                                            '情感方差最低的产品属性' :
                                             '需改进度最低的产品属性'
                             }
                         </span>

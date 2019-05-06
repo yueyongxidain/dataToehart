@@ -274,7 +274,7 @@ class Index extends Component {
                                         this.state.barIndex == 2 ?
                                             '高端手机关注度最高的产品属性' :
                                             this.state.barIndex == 3 ?
-                                                '高端手机情感房差最高的产品属性' :
+                                                '高端手机情感方差最高的产品属性' :
                                                 '高端手机需改进度最高的产品属性'
                                 }
                             </span>
@@ -293,7 +293,7 @@ class Index extends Component {
                                         this.state.barIndex == 2 ?
                                             '高端手机关注度最低的产品属性' :
                                             this.state.barIndex == 3 ?
-                                                '高端手机情感房差最低的产品属性' :
+                                                '高端手机情感方差最低的产品属性' :
                                                 '高端手机需改进度最低的产品属性'
                                 }
                             </span>
@@ -314,7 +314,7 @@ class Index extends Component {
                                         this.state.barIndex == 2 ?
                                             '中端手机关注度最高的产品属性' :
                                             this.state.barIndex == 3 ?
-                                                '中端手机情感房差最高的产品属性' :
+                                                '中端手机情感方差最高的产品属性' :
                                                 '中端手机需改进度最高的产品属性'
                                 }
                             </span>
@@ -333,7 +333,7 @@ class Index extends Component {
                                         this.state.barIndex == 2 ?
                                             '中端手机关注度最低的产品属性' :
                                             this.state.barIndex == 3 ?
-                                                '中端手机情感房差最低的产品属性' :
+                                                '中端手机情感方差最低的产品属性' :
                                                 '中端手机需改进度最低的产品属性'
                                 }
                             </span>
@@ -355,7 +355,7 @@ class Index extends Component {
                                         this.state.barIndex == 2 ?
                                             '低端手机关注度最高的产品属性' :
                                             this.state.barIndex == 3 ?
-                                                '低端手机情感房差最高的产品属性' :
+                                                '低端手机情感方差最高的产品属性' :
                                                 '低端手机需改进度最高的产品属性'
                                 }
                             </span>
@@ -374,7 +374,7 @@ class Index extends Component {
                                         this.state.barIndex == 2 ?
                                             '低端手机关注度最低的产品属性' :
                                             this.state.barIndex == 3 ?
-                                                '低端手机情感房差最低的产品属性' :
+                                                '低端手机情感方差最低的产品属性' :
                                                 '低端手机需改进度最低的产品属性'
                                 }
                             </span>

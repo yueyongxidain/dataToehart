@@ -178,7 +178,7 @@ class Index extends Component {
             //------------ 内容数据  -----------------
             series: [
                 {
-                    name: '销量',             //---系列名称
+                    name: '总体手机',             //---系列名称
                     type: 'bar',                //---类型
                     legendHoverLink: true,       //---是否启用图例 hover 时的联动高亮
                     label: {                     //---图形上的文本标签

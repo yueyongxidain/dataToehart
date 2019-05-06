@@ -24,7 +24,9 @@ class Index extends Component {
             sortType: 0,
             phone: [],
             phoneSource: [],
-            demoData:[],
+            demoData: [],
+            twoPhone: '',
+            onePhone: ''
         }
     }
     btnOne = (e) => {
@@ -98,7 +100,7 @@ class Index extends Component {
     //排序点击
     sort = (e) => {
         e.stopPropagation()
-        let { one, sortType,demoData } = this.state
+        let { one, sortType, demoData } = this.state
         one.sort((a, b) => {
             if (a.value > b.value) return sortType ? -1 : 1
             if (a.value < b.value) return sortType ? 1 : -1
@@ -115,7 +117,7 @@ class Index extends Component {
         this.setState({
             one: one,
             sortType: sortType ? 0 : 1,
-            demoData:resDemo
+            demoData: resDemo
         })
     }
     postItem = (name, item, stateName) => {
@@ -155,6 +157,9 @@ class Index extends Component {
     //下拉改变事件
     handleChange = (e) => {
         let { phone, phoneSource, barIndex } = this.state
+        this.setState({
+            onePhone: e
+        })
         phone.map((ele) => {
             if (ele.phone === e) {
                 phoneSource[0] = ele
@@ -167,6 +172,9 @@ class Index extends Component {
     }
     handleChangeTwo = (e) => {
         let { phone, phoneSource, barIndex } = this.state
+        this.setState({
+            twoPhone: e
+        })
         phone.map((ele) => {
             if (ele.phone === e) {
                 phoneSource[1] = ele
@@ -249,7 +257,8 @@ class Index extends Component {
                             <Select defaultValue={phoneSource[0].phone} style={{ width: 120 }} onChange={this.handleChange}>
                                 {
                                     this.state.phone.map((ele) => {
-                                        return <Option value={ele.phone} key={ele.phone}>{ele.phone}</Option>
+                                        if (ele.phone !== this.state.twoPhone)
+                                            return <Option value={ele.phone} key={ele.phone}>{ele.phone}</Option>
                                     })
                                 }
                             </Select></div>
@@ -301,7 +310,8 @@ class Index extends Component {
                             <Select defaultValue={phoneSource[1].phone} style={{ width: 120 }} onChange={this.handleChangeTwo}>
                                 {
                                     this.state.phone.map((ele) => {
-                                        return <Option value={ele.phone} key={ele.phone}>{ele.phone}</Option>
+                                        if (ele.phone !== this.state.onePhone)
+                                            return <Option value={ele.phone} key={ele.phone}>{ele.phone}</Option>
                                     })
                                 }
                             </Select></div>
@@ -366,7 +376,8 @@ class Index extends Component {
         const { barIndex } = this.state
         this.postItem(phoneSource[0].phone, barIndex, 'two')
         this.setState({
-            phoneSource: [...this.state.phoneSource, ...phoneSource]
+            phoneSource: [...this.state.phoneSource, ...phoneSource],
+            twoPhone: phoneSource[0].phone
         })
     }
     componentWillMount = () => {
@@ -389,7 +400,8 @@ class Index extends Component {
                 if (app.code == 0) {
                     this.setState({
                         phone: app.result,
-                        phoneSource: !!app.result[0] ? [app.result[0]] : []
+                        phoneSource: !!app.result[0] ? [app.result[0]] : [],
+                        onePhone: !!app.result[0] ? app.result[0].phone : ''
                     })
                     POST('/demo/getCsv.php', { name: app.result[0].type, item: backItem || 1 }).then(app => {
                         if (app.code == 0) {
@@ -411,7 +423,7 @@ class Index extends Component {
                     })
                 }
             })
-            POST('/demo/getCsv.php', { name: phoneSource[0].type, item: arrs[0].split('=')[1] * 1  || this.state.barIndex }).then(app => {
+            POST('/demo/getCsv.php', { name: phoneSource[0].type, item: arrs[0].split('=')[1] * 1 || this.state.barIndex }).then(app => {
                 if (app.code == 0) {
                     this.setState({
                         demoData: app.result
@@ -453,7 +465,7 @@ class Index extends Component {
                 </div>
                 {phoneSource.length > 1 ? null : <div className='sort'><img src={!this.state.sortType ? SortDown : SortUp} onClick={this.sort} /></div>}
                 <div className='tables'>
-                    <Bar one={this.state.one} two={phoneSource.length == 2 ? this.state.two : this.state.demoData} oneName={!!phoneSource[0]?phoneSource[0].phone:''} twoName={phoneSource.length == 2 ?phoneSource[1].phone :!!phoneSource[0]?phoneSource[0].type:''} />
+                    <Bar one={this.state.one} two={phoneSource.length == 2 ? this.state.two : this.state.demoData} oneName={!!phoneSource[0] ? phoneSource[0].phone : ''} twoName={phoneSource.length == 2 ? phoneSource[1].phone : !!phoneSource[0] ? phoneSource[0].type : ''} />
                     <Divider type='vertical' className='tables-divider' />
                     <div className='tables-Right'>
                         <div>
@@ -479,7 +491,7 @@ class Index extends Component {
                                         this.state.barIndex == 2 ?
                                             '关注度最高的产品属性' :
                                             this.state.barIndex == 3 ?
-                                                '情感房差最高的产品属性' :
+                                                '情感方差最高的产品属性' :
                                                 '需改进度最高的产品属性'
                                 }
                             </span>
@@ -499,7 +511,7 @@ class Index extends Component {
                                         this.state.barIndex == 2 ?
                                             '关注度最低的产品属性' :
                                             this.state.barIndex == 3 ?
-                                                '情感房差最低的产品属性' :
+                                                '情感方差最低的产品属性' :
                                                 '需改进度最低的产品属性'
                                 }
                             </span>
@@ -521,7 +533,7 @@ class Index extends Component {
                                         this.state.barIndex == 2 ?
                                             '关注度最高的产品属性' :
                                             this.state.barIndex == 3 ?
-                                                '情感房差最高的产品属性' :
+                                                '情感方差最高的产品属性' :
                                                 '需改进度最高的产品属性'
                                 }
                             </span>
@@ -541,7 +553,7 @@ class Index extends Component {
                                         this.state.barIndex == 2 ?
                                             '关注度最低的产品属性' :
                                             this.state.barIndex == 3 ?
-                                                '情感房差最低的产品属性' :
+                                                '情感方差最低的产品属性' :
                                                 '需改进度最低的产品属性'
                                 }
                             </span>

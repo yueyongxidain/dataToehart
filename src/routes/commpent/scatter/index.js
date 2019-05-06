@@ -57,38 +57,38 @@ class Index extends Component {
                 }
             }
         }
-        let res = Array(9)
+        let res = []
         for (let i = 0; i < 9; i++) {
-            if (!!yAxisData[i]&&!!yAxisData[i].value && !!yAxisData[i].number && !!yAxisData[i].key) {
+            if (!!yAxisData[i] && !!yAxisData[i].value && !!yAxisData[i].number && !!yAxisData[i].key) {
                 if (i == 0) {
-                    res.push([2.5, 7.5, yAxisData[i].number, yAxisData[i].key])
+                    res.push([0.8, 8.5, yAxisData[i].number, yAxisData[i].key, i])
                 }
                 else if (i == 1) {
-                    res.push([2.8, 16.5, yAxisData[i].number, yAxisData[i].key])
+                    res.push([1.2, 16.5, yAxisData[i].number, yAxisData[i].key, i])
                 }
-                else if (i== 2) {
-                    res.push([3.8, 18.5, yAxisData[i].number, yAxisData[i].key])
+                else if (i == 2) {
+                    res.push([2.8, 18.5, yAxisData[i].number, yAxisData[i].key, i])
                 }
                 else if (i == 3) {
-                    res.push([3.6, 7.5, yAxisData[i].number, yAxisData[i].key])
+                    res.push([2.4, 7.5, yAxisData[i].number, yAxisData[i].key, i])
                 }
                 else if (i == 4) {
-                    res.push([5, 12, yAxisData[i].number, yAxisData[i].key])
+                    res.push([4.5, 12, yAxisData[i].number, yAxisData[i].key, i])
                 }
                 else if (i == 5) {
-                    res.push([6.6, 15.5, yAxisData[i].number, yAxisData[i].key])
+                    res.push([6.6, 16.5, yAxisData[i].number, yAxisData[i].key, i])
                 }
                 else if (i == 6) {
-                    res.push([6.2, 5.5, yAxisData[i].number, yAxisData[i].key])
+                    res.push([6.2, 5.5, yAxisData[i].number, yAxisData[i].key, i])
                 }
                 else if (i == 7) {
-                    res.push([7.2, 8.5, yAxisData[i].number, yAxisData[i].key])
+                    res.push([7.8, 8.5, yAxisData[i].number, yAxisData[i].key, i])
                 }
                 else if (i == 8) {
-                    res.push([7.6, 19.5, yAxisData[i].number, yAxisData[i].key])
+                    res.push([8.2, 16.5, yAxisData[i].number, yAxisData[i].key, i])
                 }
                 else {
-                    res.push([k, yAxisData[i].value, yAxisData[i].number, yAxisData[i].key])
+                    res.push([k, yAxisData[i].value, yAxisData[i].number, yAxisData[i].key, i])
                 }
             }
             else {
@@ -101,8 +101,8 @@ class Index extends Component {
             grid: {
                 show: false,                 //---是否显示直角坐标系网格
                 top: 80,
-                left: 0,
-                right: 100,
+                left: 60,
+                right: 40,
                 bottom: 25,                 //---相对位置，top\bottom\left\right  
                 containLabel: false,         //---grid 区域是否包含坐标轴的刻度标签
                 tooltip: {                   //---鼠标焦点放在图形上，产生的提示框
@@ -135,62 +135,79 @@ class Index extends Component {
                 data: res,
                 type: 'scatter',
                 symbolSize: function (ydata, params) {
-                    console.log('data:0', ydata)
-                    let indexSize = temp.findIndex((ele) => {
-                        if (!!params.data)
-                            return ele.number == params.data[2]
-                        else {
-                            return -1
+                    if (!!ydata) {
+                        if (ydata[4] == 0) {
+                            return 90
                         }
-                    })
-                    console.log('index', indexSize)
-                    if (indexSize == 0) {
-                        return 200
-                    }
-                    if (indexSize < 3 && indexSize > 0) {
-                        return 150
-                    }
-                    if (indexSize < 5 && indexSize >= 3) {
-                        return 130
-                    }
-                    else {
-                        return 90
+                        if (ydata[4] == 1) {
+                            return 130
+                        }
+                        if (ydata[4] == 2) {
+                            return 140
+                        }
+                        if (ydata[4] == 3) {
+                            return 180
+                        }
+                        if (ydata[4] == 4) {
+                            return 250
+                        }
+                        if (ydata[4] == 5) {
+                            return 180
+                        }
+                        if (ydata[4] == 6) {
+                            return 140
+                        }
+                        if (ydata[4] == 7) {
+                            return 130
+                        }
+                        if (ydata[4] == 8) {
+                            return 90
+                        }
                     }
                 },
                 zlevel: 999,
                 label: {
                     show: true,
                     formatter: (params) => {
-                        console.log('papa:', params.data)
                         return `${params.data[3]}\n${params.data[2]}`
                     },
+                    offset:[0,6],
                     fontStyle: 'normal',
-                    fontSize: 16,
+                    fontSize: 20,
                     fontWeight: 'bold',
                     fontFamily: 'Arial'
                 },
                 itemStyle: {
                     normal: {
                         color: function (params) {
-                            let indexSize = temp.findIndex((ele) => {
-                                if (!!params.data) {
-                                    return ele.number == params.data[2]
+                            if (!!params.data) {
+                                if (params.data[4] == 0) {
+                                    return '#00DCBF'
                                 }
-                                else {
-                                    return -1
+                                if (params.data[4] == 1) {
+                                    return '#00CAD5'
                                 }
-                            })
-                            if (indexSize == 0) {
-                                return '#005FFC'
-                            }
-                            if (indexSize < 3 && indexSize > 0) {
-                                return '#007FF6'
-                            }
-                            if (indexSize < 5 && indexSize >= 3) {
-                                return '#00B0EC'
-                            }
-                            else {
-                                return '#00C2D7'
+                                if (params.data[4] == 2) {
+                                    return '#00CAD5'
+                                }
+                                if (params.data[4] == 3) {
+                                    return '#0098FF'
+                                }
+                                if (params.data[4] == 4) {
+                                    return '#005FFC'
+                                }
+                                if (params.data[4] == 5) {
+                                    return '#0098FF'
+                                }
+                                if (params.data[4] == 6) {
+                                    return '#00CAD5'
+                                }
+                                if (params.data[4] == 7) {
+                                    return '#00CAD5'
+                                }
+                                if (params.data[4] == 8) {
+                                    return '#00DCBF'
+                                }
                             }
                         }
                     },
