@@ -14,7 +14,7 @@ class Index extends Component {
     componentWillReceiveProps = (nextProps) => {
         let xdata = [];
         let ydata = [];
-    
+        let minValue = 0
         nextProps.data.map((ele) => {
             xdata.push(ele.key)
             ydata.push(ele.value)
@@ -92,7 +92,7 @@ class Index extends Component {
                     interval: 0,
                     rotate: 0,                   //---旋转角度   
                     margin: 8,                  //---刻度标签与轴线之间的距离
-                    fontSize:14,
+                    fontSize: 14,
                 },
                 splitLine: {                 //---grid 区域中的分隔线
                     show: true,                 //---是否显示，'category'类目轴不显示，此时我的X轴为类目轴，splitLine属性是无意义的
@@ -112,13 +112,18 @@ class Index extends Component {
                 show: true,                  //---是否显示
                 position: 'left',            //---y轴位置
                 offset: 0,                   //---y轴相对于默认位置的偏移
-                min: function(value){
-                    return -(value.max*1.1/9).toFixed(2);
+                min: function (value) {
+                    minValue = value.min
+                    if (value.min < 0) {
+                        return value.min - (value.max * 1.1 / 9).toFixed(2);
+
+                    }
+                    return -(value.max * 1.1 / 9).toFixed(2);
                 },
-                max:function(value){
-                    return (value.max*1.1).toFixed(2);
+                max: function (value) {
+                    return (value.max * 1.1).toFixed(2);
                 },
-                splitNumber:10,
+                splitNumber: 10,
                 type: 'value',           //---轴类型，默认'category'
                 /*name:'销量',*/              //---轴名称
                 nameLocation: 'end',         //---轴名称相对位置value
@@ -147,7 +152,9 @@ class Index extends Component {
                     inside: true,                //---是否朝内
                     lengt: 3,                    //---长度
                     lineStyle: {
-                        //color:'red',          //---默认取轴线的颜色
+                        color:function (value, index) {
+                            return value >= minValue ? '#fff' : '#1C2128';
+                        },
                         width: 1,
                         type: 'solid',
                     },
@@ -158,9 +165,9 @@ class Index extends Component {
                     rotate: 0,                   //---旋转角度   
                     margin: 8,                  //---刻度标签与轴线之间的距离
                     //color:'red',              //---默认取轴线的颜色
-                    color:function (value, index) {
-                        console.log("opopopop",value)
-                        return value >= 0 ? '#fff' : '#1C2128';
+                    color: function (value, index) {
+                        console.log("opopopop", value)
+                        return value >= minValue ? '#fff' : '#1C2128';
                     },
                 },
                 splitLine: {                     //---grid 区域中的分隔线

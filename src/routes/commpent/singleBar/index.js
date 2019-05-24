@@ -15,8 +15,7 @@ class Index extends Component {
         let xdata = [];
         let one = [];
         let two = [];
-        debugger
-        console.log("one:",nextProps.one)
+        let min =0;
         nextProps.one.map((ele) => {
             xdata.push(ele.key)
             one.push(ele.value)
@@ -44,7 +43,7 @@ class Index extends Component {
                 show: true,                 //---是否显示直角坐标系网格
                 top: 80,
                 left: 60,
-                right: 20,    
+                right: 20,
                 bottom: 25,                 //                 //---相对位置，top\bottom\left\right  
                 containLabel: false,         //---grid 区域是否包含坐标轴的刻度标签
                 tooltip: {                   //---鼠标焦点放在图形上，产生的提示框
@@ -99,7 +98,7 @@ class Index extends Component {
                     rotate: 0,                   //---旋转角度   
                     margin: 8,                  //---刻度标签与轴线之间的距离
                     //color:,             //---默认取轴线的颜色
-                    fontSize:14,
+                    fontSize: 14,
                 },
                 splitLine: {                 //---grid 区域中的分隔线
                     show: true,                 //---是否显示，'category'类目轴不显示，此时我的X轴为类目轴，splitLine属性是无意义的
@@ -121,7 +120,13 @@ class Index extends Component {
                 offset: 0,                   //---y轴相对于默认位置的偏移
                 type: 'value',           //---轴类型，默认'category'
                 min: function (value) {
+                    min = value.min
+                    if (value.min < 0) {
+                        return value.min - (value.max * 1.1 / 10).toFixed(2);
+
+                    }
                     return -(value.max * 1.1 / 9).toFixed(2);
+
                 },
                 max: function (value) {
                     return (value.max * 1.1).toFixed(2);
@@ -153,7 +158,10 @@ class Index extends Component {
                     inside: true,                //---是否朝内
                     lengt: 3,                    //---长度
                     lineStyle: {
-                        //color:'red',          //---默认取轴线的颜色
+                        color:function (value, index) {
+                            console.log("刻度", value)
+                            return value >= min ? '#fff' : '#1C2128';
+                        },
                         width: 1,
                         type: 'solid',
                     },
@@ -164,9 +172,9 @@ class Index extends Component {
                     rotate: 0,                   //---旋转角度   
                     margin: 8,                  //---刻度标签与轴线之间的距离
                     //color:'red',              //---默认取轴线的颜色
-                    color:function (value, index) {
-                        console.log("opopopop",value)
-                        return value >= 0 ? '#fff' : '#1C2128';
+                    color: function (value, index) {
+                      
+                        return value >= min ? '#fff' : '#1C2128';
                     },
                 },
                 splitLine: {                     //---grid 区域中的分隔线

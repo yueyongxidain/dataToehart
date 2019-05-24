@@ -1,8 +1,6 @@
 import fetch from 'dva/fetch';
 
 function parseJSON(response) {
-  debugger
-  console.log('1221212',response)
   return response.json();
 }
 
