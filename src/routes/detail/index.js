@@ -96,7 +96,9 @@ class Index extends Component {
     }
     //饼图点击事件
     pieClick = (data, index) => {
+        if(data.length<=0) return
         let sortData = cloneDeep(data);
+        
         sortData = sortData.sort((a, b) => {
             if (a.value * 1 > b.value * 1) return -1
             if (a.value * 1 < b.value * 1) return 1
