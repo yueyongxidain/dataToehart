@@ -204,26 +204,26 @@ class Index extends Component {
     }
     componentWillMount = () => {
         const query = this.props.location.search
-        const arr = decodeURIComponent(query.split('?')[1]) 
-        const arrs = arr.split('&') 
-        const backItem = arrs[0].split('=')[1]*1
+        const arr = decodeURIComponent(query.split('?')[1])
+        const arrs = arr.split('&')
+        const backItem = arrs[0].split('=')[1] * 1
         this.setState({
-                barIndex:backItem||1
+            barIndex: backItem || 1
         })
-        this.postItem(backItem||1);
+        this.postItem(backItem || 1);
 
     }
     //饼图点击事件
-    pieClick = (name,data,item)=>{
-        let datas =cloneDeep(data)
-        const {barIndex}= this.state
+    pieClick = (name, data, item) => {
+        let datas = cloneDeep(data)
+        const { barIndex } = this.state
         datas.sort((a, b) => {
             if (a.value > b.value) return -1
             if (a.value < b.value) return 1
             else return 0
         })
         let type = datas[item].key
-        this.props.dispatch(routerRedux.push("/home/detail?name="+name+'&type='+type+'&index='+item+'&backItem='+barIndex))
+        this.props.dispatch(routerRedux.push("/home/detail?name=" + name + '&type=' + type + '&index=' + item + '&backItem=' + barIndex))
     }
     render() {
         const { gaoBtn, zhongBtn, diBtn } = this.state
@@ -279,9 +279,9 @@ class Index extends Component {
                                 }
                             </span>
                             <div className='left-body'>
-                                <Pie className='left-pie' data={this.state.gao} item={1} onclick={()=> this.state.barIndex==4?this.pieClick('高端手机',this.state.gao,0):null}/>
-                                <Pie className='left-pie' data={this.state.gao} item={2} onclick={()=> this.state.barIndex==4?this.pieClick('高端手机',this.state.gao,1):null}/>
-                                <Pie className='left-pie' data={this.state.gao} item={3} onclick={()=> this.state.barIndex==4?this.pieClick('高端手机',this.state.gao,2):null}/>
+                                <Pie className='left-pie' data={this.state.gao} item={1} onclick={() => this.state.barIndex == 4 ? this.pieClick('高端手机', this.state.gao, 0) : null} />
+                                <Pie className='left-pie' data={this.state.gao} item={2} onclick={() => this.state.barIndex == 4 ? this.pieClick('高端手机', this.state.gao, 1) : null} />
+                                <Pie className='left-pie' data={this.state.gao} item={3} onclick={() => this.state.barIndex == 4 ? this.pieClick('高端手机', this.state.gao, 2) : null} />
                             </div>
                         </div>
                         <Divider type='vertical' className='divider-pie' />
@@ -319,9 +319,9 @@ class Index extends Component {
                                 }
                             </span>
                             <div className='left-body'>
-                                <Pie className='left-pie' data={this.state.zhong} item={1} />
-                                <Pie className='left-pie' data={this.state.zhong} item={2} />
-                                <Pie className='left-pie' data={this.state.zhong} item={3} />
+                                <Pie className='left-pie' data={this.state.zhong} item={1} onclick={() => this.state.barIndex == 4 ? this.pieClick('中端手机', this.state.gao, 0) : null} />
+                                <Pie className='left-pie' data={this.state.zhong} item={2} onclick={() => this.state.barIndex == 4 ? this.pieClick('中端手机', this.state.gao, 1) : null} />
+                                <Pie className='left-pie' data={this.state.zhong} item={3} onclick={() => this.state.barIndex == 4 ? this.pieClick('中端手机', this.state.gao, 2) : null} />
                             </div>
                         </div>
                         <Divider type='vertical' className='divider-pie' />
@@ -360,9 +360,9 @@ class Index extends Component {
                                 }
                             </span>
                             <div className='left-body'>
-                                <Pie className='left-pie' data={this.state.di} item={1} />
-                                <Pie className='left-pie' data={this.state.di} item={2} />
-                                <Pie className='left-pie' data={this.state.di} item={3} />
+                                <Pie className='left-pie' data={this.state.di} item={1}  onclick={() => this.state.barIndex == 4 ? this.pieClick('低端手机', this.state.gao, 0) : null} />
+                                <Pie className='left-pie' data={this.state.di} item={2}  onclick={() => this.state.barIndex == 4 ? this.pieClick('低端手机', this.state.gao, 1) : null} />
+                                <Pie className='left-pie' data={this.state.di} item={3}  onclick={() => this.state.barIndex == 4 ? this.pieClick('低端手机', this.state.gao, 2) : null} />
                             </div>
                         </div>
                         <Divider type='vertical' className='divider-pie' />
