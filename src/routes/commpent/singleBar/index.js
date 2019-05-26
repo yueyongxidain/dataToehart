@@ -163,8 +163,9 @@ class Index extends Component {
                     lengt: 3,                    //---长度
                     lineStyle: {
                         color: function (value, index) {
-                            console.log("刻度", value)
-                            return value >= min ? '#fff' : '#1C2128';
+                            let minvalue = min
+                            if (minvalue > 0) minvalue = 0
+                            return value >= minvalue ? '#fff' : '#1C2128';
                         },
                         width: 1,
                         type: 'solid',
@@ -177,8 +178,9 @@ class Index extends Component {
                     margin: 8,                  //---刻度标签与轴线之间的距离
                     //color:'red',              //---默认取轴线的颜色
                     color: function (value, index) {
-
-                        return value >= min ? '#fff' : '#1C2128';
+                        let minvalue = min
+                        if (minvalue > 0) minvalue = 0
+                        return value - minvalue >= 0 ? '#fff' : '#1C2128';
                     },
                 },
                 splitLine: {                     //---grid 区域中的分隔线
