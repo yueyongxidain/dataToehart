@@ -15,7 +15,7 @@ class Index extends Component {
         let xdata = [];
         let one = [];
         let two = [];
-        let min =0;
+        let min = 0;
         nextProps.one.map((ele) => {
             xdata.push(ele.key)
             one.push(ele.value)
@@ -122,7 +122,11 @@ class Index extends Component {
                 min: function (value) {
                     min = value.min
                     if (value.min < 0) {
-                        return value.min - (value.max * 1.1 / 10).toFixed(2);
+                        if (value.min < -0.6) {
+                            return value.min - (value.max * 1.2 / 6).toFixed(3);
+
+                        }
+                        return value.min - (value.max * 1.2 / 8).toFixed(3);
 
                     }
                     return -(value.max * 1.1 / 9).toFixed(2);
@@ -158,7 +162,7 @@ class Index extends Component {
                     inside: true,                //---是否朝内
                     lengt: 3,                    //---长度
                     lineStyle: {
-                        color:function (value, index) {
+                        color: function (value, index) {
                             console.log("刻度", value)
                             return value >= min ? '#fff' : '#1C2128';
                         },
@@ -173,7 +177,7 @@ class Index extends Component {
                     margin: 8,                  //---刻度标签与轴线之间的距离
                     //color:'red',              //---默认取轴线的颜色
                     color: function (value, index) {
-                      
+
                         return value >= min ? '#fff' : '#1C2128';
                     },
                 },
