@@ -177,7 +177,9 @@ class Index extends Component {
                     margin: 8,                  //---刻度标签与轴线之间的距离
                     //color:'red',              //---默认取轴线的颜色
                     color: function (value, index) {
-                        return value >= min ? '#fff' : '#1C2128';
+                        let minvalues = min
+                        if (minvalues > 0) minvalues = 0
+                        return value - minvalues >= 0 ? '#fff' : '#1C2128';
                     },
                 },
                 splitLine: {                     //---grid 区域中的分隔线

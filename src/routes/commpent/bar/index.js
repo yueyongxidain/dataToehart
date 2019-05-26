@@ -152,7 +152,7 @@ class Index extends Component {
                     inside: true,                //---是否朝内
                     lengt: 3,                    //---长度
                     lineStyle: {
-                        color:function (value, index) {
+                        color: function (value, index) {
                             return value >= minValue ? '#fff' : '#1C2128';
                         },
                         width: 1,
@@ -166,8 +166,9 @@ class Index extends Component {
                     margin: 8,                  //---刻度标签与轴线之间的距离
                     //color:'red',              //---默认取轴线的颜色
                     color: function (value, index) {
-                        console.log("opopopop", value)
-                        return value >= minValue ? '#fff' : '#1C2128';
+                        let minvalues = minValue
+                        if (minvalues > 0) minvalues = 0
+                        return value - minvalues >= 0 ? '#fff' : '#1C2128';
                     },
                 },
                 splitLine: {                     //---grid 区域中的分隔线
