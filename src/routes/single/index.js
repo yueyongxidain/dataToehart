@@ -156,6 +156,7 @@ class Index extends Component {
     }
     //下拉改变事件
     handleChange = (e) => {
+        debugger
         let { phone, phoneSource, barIndex } = this.state
         this.setState({
             onePhone: e
@@ -167,6 +168,13 @@ class Index extends Component {
                     phoneSource
                 })
                 this.postItem(e, barIndex, 'one')
+                POST('/demo/getCsv.php', { name: ele.type, item: barIndex|| 1 }).then(app => {
+                    if (app.code == 0) {
+                        this.setState({
+                            demoData: app.result
+                        })
+                    }
+                })
             }
         })
     }
@@ -187,6 +195,17 @@ class Index extends Component {
     }
     //手机对比
     phoneList = (phoneSource) => {
+        let { phone } = this.state
+        if (!!phone) {
+            phone.sort((a, b) => {
+                if (a.phone < b.phone) return 1
+                if (a.phone > b.phone) return -1
+                else return 0
+            })
+        }
+        debugger
+       
+    
         if (phoneSource.length == 1) {
             return (
                 <div>
@@ -194,7 +213,7 @@ class Index extends Component {
                         <div className='phone-name'>
                             <Select defaultValue={phoneSource[0].phone} style={{ width: 120 }} onChange={this.handleChange}>
                                 {
-                                    this.state.phone.map((ele) => {
+                                    phone.map((ele) => {
                                         return <Option value={ele.phone} key={ele.phone}>{ele.phone}</Option>
                                     })
                                 }
@@ -256,7 +275,7 @@ class Index extends Component {
                         <div className='phone-name'>
                             <Select defaultValue={phoneSource[0].phone} style={{ width: 120 }} onChange={this.handleChange}>
                                 {
-                                    this.state.phone.map((ele) => {
+                                    phone.map((ele) => {
                                         if (ele.phone !== this.state.twoPhone)
                                             return <Option value={ele.phone} key={ele.phone}>{ele.phone}</Option>
                                     })
@@ -309,7 +328,7 @@ class Index extends Component {
                         <div className='phone-name'>
                             <Select defaultValue={phoneSource[1].phone} style={{ width: 120 }} onChange={this.handleChangeTwo}>
                                 {
-                                    this.state.phone.map((ele) => {
+                                    phone.map((ele) => {
                                         if (ele.phone !== this.state.onePhone)
                                             return <Option value={ele.phone} key={ele.phone}>{ele.phone}</Option>
                                     })
@@ -400,7 +419,11 @@ class Index extends Component {
                 if (app.code == 0) {
                     this.setState({
                         phone: app.result,
-                        phoneSource: !!app.result[0] ? [app.result[0]] : [],
+                        phoneSource: !!app.result[0] ? [app.result.sort((a, b) => {
+                            if (a.phone < b.phone) return 1
+                            if (a.phone > b.phone) return -1
+                            else return 0
+                        })[0]] : [],
                         onePhone: !!app.result[0] ? app.result[0].phone : ''
                     })
                     POST('/demo/getCsv.php', { name: app.result[0].type, item: backItem || 1 }).then(app => {
